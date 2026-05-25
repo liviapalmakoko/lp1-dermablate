@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ECEDEE" />
+
+  <title>Dermablate® — Plataforma de laser Er:YAG | Aiconiq</title>
+  <meta name="description" content="Dermablate®: máxima precisão, mínimo calor. Plataforma de laser Er:YAG com engenharia alemã da Asclepion para resurfacing e regeneração avançada da pele." />
+
+  <!-- TODO(deploy): trocar URLs canonical/og:url pelo subdomínio definitivo (ex.: https://dermablate.koko.ag/) -->
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg" />
+  <link rel="canonical" href="/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dermablate® — Plataforma de laser Er:YAG | Aiconiq" />
+  <meta property="og:description" content="Máxima precisão. Mínimo calor. Performance clínica incomparável." />
+  <meta property="og:url" content="/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- TODO(tracking): adicionar Meta Pixel do Aiconiq aqui quando o ID for fornecido -->
+  <!-- <script>!function(f,b,e,v,n,t,s){...}('init', 'PIXEL_ID_AICONIQ');</script> -->
+
+  <!-- TODO(tracking): adicionar RD Station loader do Aiconiq aqui quando o token for fornecido -->
+  <!-- <script async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/<TOKEN>-loader.js"></script> -->
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Dermablate / Aiconiq
+       Paleta oficial Aiconiq:
+       Atlântico #142639 · Chuva #38495C · Sereno #8FA3B8 · Suspiro #ECEDEE
+       Fundo principal: off-white frio #FFFFFE
+       ============================================ */
+    :root {
+      /* Cores base — degrade Suspiro → Sereno (cinzas frios) */
+      --bg-base: #ECEDEE;        /* Suspiro — fundo principal */
+      --bg-soft: #E2E6EA;        /* tom intermediário sutil */
+      --bg-alt:  #D6DCE2;        /* mais presente, transição pra Sereno */
+      --bg-card: #F8F9FA;        /* cards (off-white quase imperceptível) */
+      --bg-card-clean: #FFFFFF;  /* form-card (limpo, contraste pra inputs) */
+      --bg-deep: #142639;        /* Atlântico — fundo escuro */
+      --bg-deep-2: #1B2E45;      /* variação um pouco mais clara pra gradientes deep */
+
+      /* Tinta */
+      --ink-deep: #142639;       /* Atlântico — títulos e logo */
+      --ink-body: #142639;       /* texto corpo */
+      --ink-mute: #38495C;       /* Chuva — texto auxiliar */
+      --ink-soft: #8FA3B8;       /* Sereno — legendas, refs */
+      --ink-inv:  #ECEDEE;       /* Suspiro — texto sobre fundo deep */
+
+      /* Detalhe / linhas */
+      --line:     rgba(20, 38, 57, 0.14);
+      --line-soft:rgba(20, 38, 57, 0.06);
+      --accent:   #8FA3B8;       /* Sereno — acento sutil (linhas finas, marcadores) */
+
+      /* CTA — verde sálvia */
+      --cta:       #A8B5A0;
+      --cta-hover: #94A28C;
+      --cta-ink:   #142639;
+
+      /* Tipografia */
+      --font-display: "Fraunces", "Times New Roman", serif;
+      --font-body:    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      /* Layout */
+      --maxw:        1360px;
+      --maxw-text:   720px;
+      --radius-sm:   4px;
+      --radius:      8px;
+      --radius-lg:   14px;
+      --space-section: clamp(72px, 11vw, 140px);
+      --nav-h: 76px;
+    }
+
+    /* ============================================
+       RESET + BASE
+       ============================================ */
+    *,*::before,*::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #ECEDEE 0%, #E2E6EA 100%);
+      background-attachment: fixed;
+      color: var(--ink-body);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, svg, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+    ul, ol { padding: 0; margin: 0; list-style: none; }
+    h1,h2,h3,h4 { margin: 0; font-weight: 400; letter-spacing: -0.01em; }
+
+    /* ============================================
+       TIPOGRAFIA
+       ============================================ */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-deep);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(32px, 4.4vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.022em;
+      color: var(--ink-deep);
+    }
+    .display em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-deep);
+    }
+    .h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink-deep);
+    }
+    .h2 em { font-style: italic; font-weight: 300; }
+    .h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(22px, 2.4vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--ink-deep);
+    }
+    .lede {
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.55;
+      color: var(--ink-body);
+      max-width: 56ch;
+    }
+    .meta {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--ink-mute);
+    }
+    strong { font-weight: 600; color: var(--ink-deep); }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .wrap {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 40px);
+    }
+    section {
+      padding: var(--space-section) 0;
+      position: relative;
+    }
+    .section-alt {
+      background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-alt) 100%);
+    }
+    .section-deep {
+      background: linear-gradient(180deg, var(--bg-deep-2) 0%, var(--bg-deep) 100%);
+      color: var(--ink-inv);
+    }
+    .section-deep .display,
+    .section-deep .h2,
+    .section-deep .h3,
+    .section-deep .eyebrow,
+    .section-deep strong { color: var(--ink-inv); }
+    .section-deep .eyebrow::before { background: var(--accent); }
+    .section-deep .lede,
+    .section-deep p { color: rgba(236, 237, 238, 0.82); }
+
+    /* Grid de pontos MicroSpot — ornamento de fundo em seções selecionadas */
+    .has-dots {
+      position: relative;
+    }
+    .has-dots::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(56, 73, 92, 0.16) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: 14px 14px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .section-deep.has-dots::before {
+      background-image: radial-gradient(circle, rgba(236, 237, 238, 0.18) 1px, transparent 1px);
+      opacity: 0.5;
+    }
+    .has-dots .wrap { position: relative; z-index: 1; }
+
+    /* ============================================
+       BOTÕES / CTA
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 28px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+      will-change: transform;
+    }
+    .btn-primary {
+      background: var(--cta);
+      color: var(--cta-ink);
+    }
+    .btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-deep);
+      border: 1px solid var(--line);
+    }
+    .btn-ghost:hover { background: var(--ink-deep); color: var(--ink-inv); border-color: var(--ink-deep); }
+    .btn-inv {
+      background: var(--cta);
+      color: var(--cta-ink);
+    }
+    .btn-inv:hover { background: var(--cta-hover); transform: translateY(-1px); }
+    .btn-arrow::after {
+      content: "→";
+      font-family: var(--font-body);
+      transition: transform .2s ease;
+    }
+    .btn:hover.btn-arrow::after { transform: translateX(4px); }
+
+    /* ============================================
+       NAV
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      background: rgba(236, 237, 238, 0.72);
+      backdrop-filter: saturate(160%) blur(14px);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      border-bottom: 1px solid var(--line-soft);
+      transition: background .25s ease, border-color .25s ease;
+    }
+    .nav.scrolled {
+      background: rgba(226, 230, 234, 0.92);
+      border-bottom-color: var(--line);
+    }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink-deep);
+    }
+    .brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+    .footer-brand .brand img { height: 34px; }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--ink-body);
+    }
+    .nav-links a:hover { color: var(--ink-deep); }
+    .nav-cta {
+      display: inline-flex;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--cta);
+      color: var(--cta-ink);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background .2s ease;
+    }
+    .nav-cta:hover { background: var(--cta-hover); }
+    .nav-toggle {
+      display: none;
+      width: 40px; height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .nav-toggle span {
+      width: 22px; height: 1.5px; background: var(--ink-deep);
+      position: relative;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute; left: 0;
+      width: 22px; height: 1.5px; background: var(--ink-deep);
+      transition: transform .25s ease;
+    }
+    .nav-toggle span::before { top: -7px; }
+    .nav-toggle span::after  { top:  7px; }
+    .nav-toggle.open span { background: transparent; }
+    .nav-toggle.open span::before { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span::after  { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ============================================
+       HERO — fullscreen, vídeo cobre tudo
+       ============================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      padding: calc(var(--nav-h) + 40px) 0 56px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-media video,
+    .hero-media > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .hero-content > div { max-width: 720px; }
+
+    /* Texto do hero em claro pra contrastar com vídeo (sem overlay) */
+    .hero .display { color: #FFFFFF; }
+    .hero .display em { color: #FFFFFF; }
+    .hero .lede { color: rgba(255, 255, 255, 0.92); }
+    .hero .lede strong { color: #FFFFFF; }
+    .hero .eyebrow { color: #FFFFFF; }
+    .hero .eyebrow::before { background: rgba(255, 255, 255, 0.7); }
+    .hero .pill {
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .hero .btn-ghost {
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .hero .btn-ghost:hover {
+      background: #FFFFFF;
+      color: var(--ink-deep);
+      border-color: #FFFFFF;
+    }
+    .hero-eyebrow-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .hero-eyebrow-row .pill {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-deep);
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .hero h1 { margin-bottom: 18px; }
+    .hero .lede { margin: 22px 0 14px; }
+    .hero-cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    /* ============================================
+       STATS (Engenharia alemã / Asclepion)
+       ============================================ */
+    .stats-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      align-items: end;
+      margin-bottom: clamp(40px, 6vw, 64px);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 2.4vw, 36px);
+      border-top: 1px solid var(--line);
+      padding-top: 48px;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(44px, 5.6vw, 72px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--ink-deep);
+    }
+    .stat-num sup { font-size: 0.45em; font-weight: 400; vertical-align: super; margin-left: 2px; }
+    .stat-label {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink-body);
+      max-width: 24ch;
+    }
+    .stats-source {
+      grid-column: 1 / -1;
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================
+       DIFERENCIAIS (4 cards)
+       ============================================ */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: clamp(40px, 5vw, 56px);
+    }
+    .feature {
+      background: var(--bg-card);
+      padding: clamp(28px, 3.6vw, 44px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background .25s ease;
+    }
+    .feature:hover { background: var(--bg-card-clean); }
+    .feature-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 28px;
+      color: var(--accent);
+    }
+    .feature h3 {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.2vw, 28px);
+      line-height: 1.15;
+      color: var(--ink-deep);
+    }
+    .feature p {
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      margin: 0;
+    }
+
+    /* ============================================
+       PROTOCOLOS COOLLASER (4 cards em fundo deep)
+       ============================================ */
+    .protocols {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: clamp(40px, 5vw, 56px);
+    }
+    .protocol {
+      padding: clamp(28px, 3.4vw, 40px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(236, 237, 238, 0.12);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    }
+    .protocol:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(236, 237, 238, 0.22);
+      transform: translateY(-2px);
+    }
+    .protocol-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--ink-inv);
+    }
+    .protocol-name sup { font-size: 0.5em; vertical-align: super; }
+    .protocol p {
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: rgba(236, 237, 238, 0.78);
+      margin: 0;
+    }
+
+    /* ============================================
+       VERSATILIDADE (lista de indicações)
+       ============================================ */
+    .versatility-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(40px, 5vw, 72px);
+      align-items: start;
+    }
+    .indications {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .indications li {
+      padding: 22px 4px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 16px;
+      color: var(--ink-body);
+    }
+    .indications li::before {
+      content: "";
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .indications .more {
+      grid-column: 1 / -1;
+      color: var(--ink-mute);
+      font-style: italic;
+      font-family: var(--font-display);
+      font-size: 18px;
+      padding-top: 24px;
+    }
+    .indications .more::before { display: none; }
+
+    /* ============================================
+       PONTEIRAS (4 cards)
+       ============================================ */
+    .tips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: clamp(40px, 5vw, 56px);
+    }
+    .tip {
+      background: var(--bg-card);
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      padding: clamp(26px, 3vw, 36px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    }
+    .tip:hover { background: var(--bg-card-clean); }
+    .tip:hover { border-color: var(--line); transform: translateY(-2px); }
+    .tip-media {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background:
+        radial-gradient(120% 80% at 50% 35%, rgba(143,163,184,0.18), transparent 60%),
+        linear-gradient(180deg, #F2F4F6 0%, #DDE2E7 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .tip-media::before {
+      /* feixe sutil atrás da ponteira */
+      content: "";
+      position: absolute;
+      top: 10%; bottom: 10%;
+      left: 50%;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, transparent, rgba(143,163,184,0.5), transparent);
+    }
+    .tip-media img {
+      position: relative;
+      max-width: 65%;
+      max-height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(20, 38, 57, 0.10));
+    }
+    .tip-code {
+      font-family: "ui-monospace", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+    }
+    .tip h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--ink-deep);
+    }
+    .tip p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      margin: 0;
+    }
+    .tips-note {
+      margin-top: 32px;
+      padding: 22px 26px;
+      background: var(--bg-alt);
+      border-left: 2px solid var(--accent);
+      font-size: 15px;
+      color: var(--ink-body);
+    }
+    .tips-note strong { color: var(--ink-deep); }
+
+    /* ============================================
+       CTA FINAL + FORM
+       ============================================ */
+    .cta-final {
+      background: var(--bg-deep);
+      color: var(--ink-inv);
+    }
+    .cta-final .h2 { color: var(--ink-inv); max-width: 22ch; }
+    .cta-final p { color: rgba(236, 237, 238, 0.85); max-width: 60ch; margin: 22px 0 0; }
+
+    .form-section {
+      background: var(--bg-alt);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+    .form-copy ul {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .form-copy li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 15.5px;
+      color: var(--ink-body);
+    }
+    .form-copy li::before {
+      content: "";
+      flex-shrink: 0;
+      margin-top: 9px;
+      width: 14px; height: 1px;
+      background: var(--accent);
+    }
+    .form-card {
+      background: var(--bg-card-clean);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 3.6vw, 44px);
+      border: 1px solid var(--line-soft);
+      box-shadow: 0 18px 50px -28px rgba(20, 38, 57, 0.18);
+    }
+    .form-card h3 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+    .form-card .meta { margin-bottom: 24px; }
+
+    .field {
+      display: flex; flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .field label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 500;
+    }
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 15px;
+      color: var(--ink-body);
+      background: #F2F4F6;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--ink-deep);
+      background: #fff;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin: 6px 0 22px;
+      line-height: 1.45;
+    }
+    .consent input { margin-top: 3px; }
+    .form-card button[type=submit] {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--cta);
+      color: var(--cta-ink);
+      border-radius: 999px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .form-card button[type=submit]:hover { background: var(--cta-hover); transform: translateY(-1px); }
+    .form-success {
+      display: none;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .form-success.show { display: block; }
+    .form-success h3 { margin-bottom: 8px; }
+    form.sent .form-default { display: none; }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: linear-gradient(180deg, var(--bg-deep) 0%, #0B1726 100%);
+      color: var(--ink-inv);
+      padding: clamp(60px, 8vw, 100px) 0 28px;
+    }
+    .footer a { color: rgba(236, 237, 238, 0.8); }
+    .footer a:hover { color: var(--ink-inv); }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: clamp(28px, 4vw, 56px);
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(236, 237, 238, 0.14);
+    }
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-inv);
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li, .footer-col a { font-size: 14.5px; color: rgba(236, 237, 238, 0.82); }
+    .footer-brand .brand { color: var(--ink-inv); }
+    .footer-brand p {
+      margin-top: 16px;
+      font-size: 14px;
+      color: rgba(236, 237, 238, 0.72);
+      line-height: 1.55;
+      max-width: 36ch;
+    }
+    .footer-refs {
+      padding: 32px 0 16px;
+      font-size: 12px;
+      color: rgba(236, 237, 238, 0.55);
+      line-height: 1.55;
+    }
+    .footer-refs ol { list-style: decimal; padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(236, 237, 238, 0.14);
+      font-size: 12.5px;
+      color: rgba(236, 237, 238, 0.6);
+    }
+
+    /* ============================================
+       REVEAL ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal[data-delay="1"] { transition-delay: .08s; }
+    .reveal[data-delay="2"] { transition-delay: .16s; }
+    .reveal[data-delay="3"] { transition-delay: .24s; }
+    .reveal[data-delay="4"] { transition-delay: .32s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 960px) {
+      .stats-intro,
+      .versatility-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero { aspect-ratio: auto; min-height: 480px; }
+      .hero-content > div { max-width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .features,
+      .protocols,
+      .tips,
+      .indications { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      :root { --nav-h: 64px; }
+      body { font-size: 16px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav.menu-open {
+        background: var(--bg-base);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav.menu-open .nav-links {
+        display: flex;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--bg-base);
+        padding: 8px 0 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav.menu-open .nav-links a {
+        padding: 14px 24px;
+        border-top: 1px solid var(--line-soft);
+        font-size: 15px;
+      }
+      .nav.menu-open .nav-cta { margin: 12px 24px 0; align-self: flex-start; }
+      .footer-top { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================
+       NAV
+       ================================ -->
+  <header class="nav" id="nav">
+    <div class="wrap">
+      <a href="#" class="brand" aria-label="Aiconiq">
+        <img src="assets/brand/logo-aiconiq.svg" alt="Aiconiq" />
+      </a>
+
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#tecnologia">Tecnologia</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#protocolos">Protocolos</a>
+        <a href="#ponteiras">Ponteiras</a>
+        <a href="#contato" class="nav-cta">Quero saber mais</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================
+       HERO — 16:9, preparado pra vídeo de fundo
+       ================================ -->
+  <section class="hero" id="top">
+    <!-- camada de mídia 16:9 — vídeo por trás de tudo -->
+    <div class="hero-media" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/videos/hero-laser.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- camada de texto sobreposta -->
+    <div class="wrap hero-content">
+      <div>
+        <div class="hero-eyebrow-row reveal">
+          <span class="eyebrow">Plataforma Er:YAG</span>
+          <span class="pill">Engenharia alemã</span>
+        </div>
+
+        <h1 class="display reveal" data-delay="1">
+          <em>Máxima</em> precisão.<br />
+          <em>Mínimo</em> calor.<br />
+          Performance clínica <em>incomparável</em>.
+        </h1>
+
+        <p class="lede reveal" data-delay="2">
+          O <strong>Dermablate®</strong> é uma plataforma de laser <strong>Er:YAG</strong> desenvolvida na Alemanha para tratamentos avançados de resurfacing e regeneração da pele.
+        </p>
+
+        <div class="hero-cta-row reveal" data-delay="3">
+          <a href="#contato" class="btn btn-primary btn-arrow">Quero saber mais</a>
+          <a href="#tecnologia" class="btn btn-ghost">Conhecer a tecnologia</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       ENGENHARIA ALEMÃ / ASCLEPION
+       ================================ -->
+  <section id="tecnologia" class="section-alt">
+    <div class="wrap">
+      <div class="stats-intro">
+        <div class="reveal">
+          <span class="eyebrow">Asclepion Laser Technologies</span>
+          <h2 class="h2" style="margin-top:18px;">
+            <em>Engenharia alemã</em> em tecnologia de alta performance.
+          </h2>
+        </div>
+        <p class="lede reveal" data-delay="1">
+          O Dermablate é desenvolvido pela <strong>Asclepion Laser Technologies</strong>, uma das empresas líderes globais em tecnologias médicas baseadas em laser.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat reveal">
+          <span class="stat-num">Top 4</span>
+          <span class="stat-label">Players do mercado mundial de lasers médicos.</span>
+        </div>
+        <div class="stat reveal" data-delay="1">
+          <span class="stat-num">45<sup>+</sup></span>
+          <span class="stat-label">Anos desenvolvendo soluções dermatológicas, estéticas e cirúrgicas.</span>
+        </div>
+        <div class="stat reveal" data-delay="2">
+          <span class="stat-num">70<sup>+</sup></span>
+          <span class="stat-label">Países com clínicas e centros especializados que utilizam a tecnologia.</span>
+        </div>
+        <div class="stat reveal" data-delay="3">
+          <span class="stat-num"><em>DE</em></span>
+          <span class="stat-label">Engenharia alemã de precisão, segurança e controle energético.</span>
+        </div>
+        <p class="stats-source">*Fonte: Asclepion Laser Technologies — dados institucionais globais.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       DIFERENCIAIS DA TECNOLOGIA
+       ================================ -->
+  <section id="diferenciais">
+    <div class="wrap">
+      <div class="stats-intro">
+        <div class="reveal">
+          <span class="eyebrow">Diferenciais estratégicos</span>
+          <h2 class="h2" style="margin-top:18px;">
+            Precisão que <em>preserva</em>.<br />
+            Energia que <em>regenera</em>.
+          </h2>
+        </div>
+        <p class="lede reveal" data-delay="1">
+          Características que tornam o Dermablate uma plataforma única para resurfacing e regeneração da pele.
+        </p>
+      </div>
+
+      <div class="features">
+        <article class="feature reveal">
+          <span class="feature-num">01</span>
+          <h3>Ablação a frio real</h3>
+          <p>Máxima precisão com mínima difusão térmica, preservando a qualidade do tecido ao redor.</p>
+        </article>
+        <article class="feature reveal" data-delay="1">
+          <span class="feature-num">02</span>
+          <h3>Controle energético refinado</h3>
+          <p>Energia homogênea e previsível em todas as camadas da pele.</p>
+        </article>
+        <article class="feature reveal" data-delay="2">
+          <span class="feature-num">03</span>
+          <h3>Estimulação de colágeno e regeneração cutânea</h3>
+          <p>A tecnologia MicroSpot estimula processos regenerativos e melhora a qualidade da pele.</p>
+        </article>
+        <article class="feature reveal" data-delay="3">
+          <span class="feature-num">04</span>
+          <h3>Protocolos adaptáveis a fototipos</h3>
+          <p>Versatilidade que permite protocolos ajustados às características da pele brasileira.</p>
+        </article>
+      </div>
+
+      <div style="margin-top:48px;" class="reveal">
+        <a href="#contato" class="btn btn-primary btn-arrow">Quero saber mais</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       PROTOCOLOS COOLLASER (deep)
+       ================================ -->
+  <section id="protocolos" class="section-deep has-dots">
+    <div class="wrap">
+      <div class="stats-intro">
+        <div class="reveal">
+          <span class="eyebrow">Protocolos COOLLASER™</span>
+          <h2 class="h2" style="margin-top:18px;">
+            Ciência da regeneração em <em>protocolos personalizados</em>.
+          </h2>
+        </div>
+        <p class="lede reveal" data-delay="1">
+          Os protocolos <strong>COOLLASER™</strong> traduzem a ciência da regeneração cutânea em tratamentos com resultados previsíveis, naturais e progressivos — com parâmetros clínicos padronizados que garantem <strong>segurança e consistência em cada sessão</strong>.
+        </p>
+      </div>
+
+      <div class="protocols">
+        <article class="protocol reveal">
+          <div class="protocol-name">COOLBLEPH<sup>®</sup></div>
+          <p>Tratamento não cirúrgico para pálpebras que reduz sinais de cansaço e rejuvenesce o olhar.</p>
+        </article>
+        <article class="protocol reveal" data-delay="1">
+          <div class="protocol-name">COOLYELLOW<sup>®</sup></div>
+          <p>Combina ação vascular e renovação da pele para um tom mais uniforme e limpo.</p>
+        </article>
+        <article class="protocol reveal" data-delay="2">
+          <div class="protocol-name">COOLORA<sup>®</sup></div>
+          <p>Suaviza rugas ao redor da boca, promovendo maior firmeza e uniformidade da pele.</p>
+        </article>
+        <article class="protocol reveal" data-delay="3">
+          <div class="protocol-name">COOLVIVE<sup>®</sup></div>
+          <p>Protocolo voltado para a região do pescoço que melhora a firmeza e reduz a flacidez.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       VERSATILIDADE DE APLICAÇÕES
+       ================================ -->
+  <section id="aplicacoes" class="section-alt">
+    <div class="wrap">
+      <div class="versatility-grid">
+        <div>
+          <span class="eyebrow reveal">Versatilidade</span>
+          <h2 class="h2 reveal" data-delay="1" style="margin-top:18px;">
+            Uma plataforma.<br />
+            <em>Múltiplas</em> aplicações estéticas.
+          </h2>
+          <p class="lede reveal" data-delay="2" style="margin-top:22px;">
+            Desenvolvida para oferecer <strong>múltiplas possibilidades de tratamento da pele</strong>, ampliando o repertório clínico com segurança e previsibilidade.
+          </p>
+        </div>
+
+        <ul class="indications">
+          <li class="reveal">Resurfacing da pele</li>
+          <li class="reveal" data-delay="1">Rejuvenescimento</li>
+          <li class="reveal" data-delay="1">Rugas e textura da pele</li>
+          <li class="reveal" data-delay="2">Cicatrizes</li>
+          <li class="reveal" data-delay="2">Lesões cutâneas</li>
+          <li class="reveal" data-delay="3">Procedimentos perioculares</li>
+          <li class="reveal" data-delay="3">Blefaroplastia não invasiva</li>
+          <li class="more reveal" data-delay="4">E muito mais — graças à versatilidade da tecnologia.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       PONTEIRAS DE ALTA PRECISÃO
+       ================================ -->
+  <section id="ponteiras">
+    <div class="wrap">
+      <div class="stats-intro">
+        <div class="reveal">
+          <span class="eyebrow">Ponteiras de alta precisão</span>
+          <h2 class="h2" style="margin-top:18px;">
+            Uma <em>ponteira</em> para cada indicação.
+          </h2>
+        </div>
+        <p class="lede reveal" data-delay="1">
+          O Dermablate conta com diferentes ponteiras desenvolvidas para atender às diversas necessidades de tratamento.
+        </p>
+      </div>
+
+      <div class="tips">
+        <article class="tip reveal">
+          <div class="tip-media">
+            <img src="assets/imagens/ponteira-microspot.png" alt="Ponteira MicroSpot — tecnologia fracionada" />
+          </div>
+          <span class="tip-code">DBL · 01</span>
+          <h3>MicroSpot</h3>
+          <p>Tecnologia fracionada para rejuvenescimento, rugas, poros e estímulo de colágeno.</p>
+        </article>
+
+        <article class="tip reveal" data-delay="1">
+          <div class="tip-media">
+            <img src="assets/imagens/ponteira-deepspot.png" alt="Ponteira DeepSpot — remodelagem dérmica" />
+          </div>
+          <span class="tip-code">DBL · 02</span>
+          <h3>DeepSpot</h3>
+          <p>Indicado para cicatrizes profundas e remodelagem dérmica.</p>
+        </article>
+
+        <article class="tip reveal" data-delay="2">
+          <div class="tip-media">
+            <img src="assets/imagens/ponteira-variospot.png" alt="Ponteira VarioSpot — spot ajustável" />
+          </div>
+          <span class="tip-code">DBL · 03</span>
+          <h3>VarioSpot</h3>
+          <p>Spot ajustável para ablação precisa de lesões e refinamento da textura da pele.</p>
+        </article>
+
+        <article class="tip reveal" data-delay="3">
+          <div class="tip-media">
+            <img src="assets/imagens/ponteira-fineliner.png" alt="Ponteira FineLiner — máxima precisão" />
+          </div>
+          <span class="tip-code">DBL · 04</span>
+          <h3>FineLiner</h3>
+          <p>Ponteira de máxima precisão para ablações delicadas e acabamento cirúrgico.</p>
+        </article>
+      </div>
+
+      <div class="tips-note reveal">
+        Todas as ponteiras contam com <strong>evacuação de fumaça integrada</strong>, garantindo maior visibilidade e segurança durante os procedimentos.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       CTA FINAL
+       ================================ -->
+  <section class="cta-final">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Próximo passo</span>
+        <h2 class="h2" style="margin-top:18px;">
+          Leve o <em>Dermablate®</em> para a sua prática clínica.
+        </h2>
+        <p>
+          Amplie as possibilidades de cuidado com uma plataforma que combina <strong>engenharia alemã, precisão energética e protocolos avançados</strong> de regeneração da pele.
+        </p>
+      </div>
+      <div class="reveal" data-delay="1" style="margin-top:32px;">
+        <a href="#contato" class="btn btn-inv btn-arrow">Quero saber mais</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FORMULÁRIO
+       ================================ -->
+  <section id="contato" class="form-section">
+    <div class="wrap">
+      <div class="form-grid">
+        <div class="form-copy">
+          <span class="eyebrow reveal">Fale com a Aiconiq</span>
+          <h2 class="h2 reveal" data-delay="1" style="margin-top:18px;">
+            Solicite informações sobre o Dermablate®.
+          </h2>
+          <ul>
+            <li class="reveal" data-delay="2">Atendimento dedicado a profissionais da área médica e estética.</li>
+            <li class="reveal" data-delay="2">Apresentação técnica completa da plataforma e protocolos.</li>
+            <li class="reveal" data-delay="3">Suporte clínico e treinamento Asclepion no Brasil.</li>
+          </ul>
+        </div>
+
+        <div class="form-card reveal" data-delay="1">
+          <form id="leadForm" novalidate>
+            <div class="form-default">
+              <h3>Quero saber mais</h3>
+              <p class="meta">Preencha os dados abaixo e nossa equipe entrará em contato.</p>
+
+              <div class="field">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" required autocomplete="name" />
+              </div>
+
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="telefone">WhatsApp</label>
+                  <input type="tel" id="telefone" name="telefone" required autocomplete="tel" placeholder="(00) 00000-0000" />
+                </div>
+                <div class="field">
+                  <label for="estado">UF</label>
+                  <select id="estado" name="estado" required>
+                    <option value="">Selecione</option>
+                    <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+                    <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+                    <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+                    <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+                    <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+                    <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+                    <option>SP</option><option>SE</option><option>TO</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="crm">CRM / Registro</label>
+                  <input type="text" id="crm" name="crm" />
+                </div>
+                <div class="field">
+                  <label for="especialidade">Especialidade</label>
+                  <input type="text" id="especialidade" name="especialidade" />
+                </div>
+              </div>
+
+              <label class="consent">
+                <input type="checkbox" id="consent" name="consent" required />
+                <span>Concordo em receber contato da Aiconiq sobre o Dermablate® e produtos relacionados, conforme a Política de Privacidade.</span>
+              </label>
+
+              <button type="submit">Enviar</button>
+            </div>
+
+            <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+              <h3>Recebemos sua solicitação.</h3>
+              <p class="meta">Em breve nossa equipe entra em contato. Obrigada pelo interesse no Dermablate®.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FOOTER
+       ================================ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="brand">
+            <img src="assets/brand/logo-aiconiq-light.svg" alt="Aiconiq" />
+          </a>
+          <p>Distribuidora oficial Asclepion Laser Technologies no Brasil. Tecnologia médica de alta performance para profissionais da pele.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#tecnologia">Tecnologia</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#protocolos">Protocolos</a></li>
+            <li><a href="#ponteiras">Ponteiras</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Profissionais</h4>
+          <ul>
+            <li><a href="#contato">Solicitar informações</a></li>
+            <li><a href="#aplicacoes">Aplicações clínicas</a></li>
+            <!-- TODO(content): links pra treinamento / suporte técnico se houver -->
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <!-- TODO(content): substituir por contatos oficiais Aiconiq -->
+            <li><a href="mailto:contato@aiconiq.com">contato@aiconiq.com</a></li>
+            <li><a href="#contato">Falar com a equipe</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-refs">
+        <ol>
+          <li>Asclepion Laser Technologies — dados institucionais globais.</li>
+          <li>Protocolos COOLLASER™, COOLBLEPH®, COOLYELLOW®, COOLORA® e COOLVIVE® são marcas registradas Asclepion Laser Technologies.</li>
+          <li>Dermablate® é equipamento de uso profissional, restrito a aplicação por profissional habilitado.</li>
+        </ol>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Aiconiq · Dermablate® é marca registrada Asclepion Laser Technologies.</span>
+        <span>#PrecisãoQueRegenera</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================
+       JS — single-file, sem dependências
+       ========================================== */
+
+    // 1) Ano no footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 1.5) Vídeo do hero em playback mais lento (sensação cinematográfica)
+    const heroVideo = document.querySelector('.hero-media video');
+    if (heroVideo) {
+      heroVideo.playbackRate = 0.6;
+      heroVideo.addEventListener('loadedmetadata', () => { heroVideo.playbackRate = 0.6; });
+    }
+
+    // 2) Nav: scroll state + mobile toggle
+    const nav = document.getElementById('nav');
+    const navToggle = document.getElementById('navToggle');
+
+    const onScroll = () => {
+      if (window.scrollY > 12) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    navToggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('menu-open');
+      navToggle.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // fecha menu mobile ao clicar em link
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('menu-open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // 3) Reveal on scroll (IntersectionObserver)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // 4) Form handler
+    // TODO(integração): plumbar destino do form (RD Station Conversions / WhatsApp / endpoint).
+    // Hoje o form apenas mostra o estado de sucesso visual.
+    const form = document.getElementById('leadForm');
+    const success = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Coleta dos dados (pronto pra POST quando o destino for definido)
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // TODO(integração): exemplo de POST RD Station Conversions API
+      // const payload = {
+      //   token_rdstation: 'TOKEN_AICONIQ',
+      //   identificador: 'lp-dermablate',
+      //   ...data,
+      // };
+      // await fetch('https://www.rdstation.com.br/api/1.3/conversions', {
+      //   method: 'POST', headers: {'Content-Type': 'application/json'},
+      //   body: JSON.stringify(payload)
+      // });
+
+      // TODO(tracking): disparar evento de conversão no Meta Pixel quando o ID estiver disponível
+      // if (window.fbq) fbq('track', 'Lead');
+
+      console.log('[Dermablate LP] lead capturado:', data);
+
+      form.classList.add('sent');
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+
+</body>
+</html>
