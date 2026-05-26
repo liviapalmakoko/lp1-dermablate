@@ -20,7 +20,7 @@
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- TODO(tracking): adicionar Meta Pixel do Aiconiq aqui quando o ID for fornecido -->
   <!-- <script>!function(f,b,e,v,n,t,s){...}('init', 'PIXEL_ID_AICONIQ');</script> -->
@@ -62,9 +62,9 @@
       --cta-hover: #94A28C;
       --cta-ink:   #142639;
 
-      /* Tipografia */
-      --font-display: "Fraunces", "Times New Roman", serif;
-      --font-body:    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      /* Tipografia — Sora (geometric sans, todos os usos) */
+      --font-display: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body:    "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
       /* Layout */
       --maxw:        1360px;
@@ -122,32 +122,33 @@
     }
     .display {
       font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(32px, 4.4vw, 58px);
-      line-height: 1.05;
-      letter-spacing: -0.022em;
+      font-weight: 700;
+      font-size: clamp(32px, 4.6vw, 60px);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
       color: var(--ink-deep);
     }
-    .display em {
-      font-style: italic;
+    .display em,
+    .display .display-soft {
+      font-style: normal;
       font-weight: 300;
-      color: var(--ink-deep);
+      color: inherit;
     }
     .h2 {
       font-family: var(--font-display);
-      font-weight: 400;
+      font-weight: 600;
       font-size: clamp(30px, 4vw, 52px);
-      line-height: 1.08;
-      letter-spacing: -0.02em;
+      line-height: 1.1;
+      letter-spacing: -0.022em;
       color: var(--ink-deep);
     }
-    .h2 em { font-style: italic; font-weight: 300; }
+    .h2 em { font-style: normal; font-weight: 300; }
     .h3 {
       font-family: var(--font-display);
-      font-weight: 400;
+      font-weight: 600;
       font-size: clamp(22px, 2.4vw, 30px);
-      line-height: 1.15;
-      letter-spacing: -0.015em;
+      line-height: 1.18;
+      letter-spacing: -0.018em;
       color: var(--ink-deep);
     }
     .lede {
@@ -265,15 +266,13 @@
       height: var(--nav-h);
       display: flex;
       align-items: center;
-      background: rgba(236, 237, 238, 0.72);
-      backdrop-filter: saturate(160%) blur(14px);
-      -webkit-backdrop-filter: saturate(160%) blur(14px);
-      border-bottom: 1px solid var(--line-soft);
+      background: #112435;
+      border-bottom: 1px solid rgba(240, 240, 240, 0.08);
       transition: background .25s ease, border-color .25s ease;
     }
     .nav.scrolled {
-      background: rgba(226, 230, 234, 0.92);
-      border-bottom-color: var(--line);
+      background: #112435;
+      border-bottom-color: rgba(240, 240, 240, 0.14);
     }
     .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand {
@@ -286,15 +285,19 @@
       width: auto;
       display: block;
     }
+    .nav .brand img {
+      /* logo dark vira light pra contrastar com nav #112435 */
+      filter: brightness(0) invert(1) opacity(0.95);
+    }
     .footer-brand .brand img { height: 34px; }
     .nav-links {
       display: flex;
       gap: 28px;
       align-items: center;
       font-size: 14px;
-      color: var(--ink-body);
+      color: rgba(240, 240, 240, 0.85);
     }
-    .nav-links a:hover { color: var(--ink-deep); }
+    .nav-links a:hover { color: #f0f0f0; }
     .nav-cta {
       display: inline-flex;
       padding: 10px 18px;
@@ -315,7 +318,7 @@
       border-radius: 8px;
     }
     .nav-toggle span {
-      width: 22px; height: 1.5px; background: var(--ink-deep);
+      width: 22px; height: 1.5px; background: #f0f0f0;
       position: relative;
       transition: transform .25s ease, opacity .2s ease;
     }
@@ -323,7 +326,7 @@
     .nav-toggle span::after {
       content: "";
       position: absolute; left: 0;
-      width: 22px; height: 1.5px; background: var(--ink-deep);
+      width: 22px; height: 1.5px; background: #f0f0f0;
       transition: transform .25s ease;
     }
     .nav-toggle span::before { top: -7px; }
@@ -333,15 +336,17 @@
     .nav-toggle.open span::after  { transform: translateY(-7px) rotate(-45deg); }
 
     /* ============================================
-       HERO — fullscreen, vídeo cobre tudo
+       HERO — fullscreen com efeito glass refraction
        ============================================ */
     .hero {
       position: relative;
-      height: 100vh;
-      min-height: 600px;
-      padding: calc(var(--nav-h) + 40px) 0 56px;
+      height: 78vh;
+      min-height: 520px;
+      max-height: 760px;
+      padding: calc(var(--nav-h) + 32px) 0 48px;
       overflow: hidden;
       isolation: isolate;
+      background: #112435;
     }
     .hero-media {
       position: absolute;
@@ -350,42 +355,107 @@
       pointer-events: none;
       overflow: hidden;
     }
-    .hero-media video,
-    .hero-media > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
     .hero-content {
       position: relative;
       z-index: 2;
       height: 100%;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
-    .hero-content > div { max-width: 720px; }
+    .hero-content > div {
+      max-width: 1040px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-    /* Texto do hero em claro pra contrastar com vídeo (sem overlay) */
-    .hero .display { color: #FFFFFF; }
-    .hero .display em { color: #FFFFFF; }
-    .hero .lede { color: rgba(255, 255, 255, 0.92); }
-    .hero .lede strong { color: #FFFFFF; }
-    .hero .eyebrow { color: #FFFFFF; }
-    .hero .eyebrow::before { background: rgba(255, 255, 255, 0.7); }
+    /* Painéis de vidro — backdrop-filter blur diferente em cada um cria refração real */
+    .hero-glass {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: row;
+      z-index: 1;
+      pointer-events: auto;
+    }
+    .hero-glass-strip {
+      flex: 1 1 0;
+      min-width: 50px;
+      height: 100%;
+      position: relative;
+      -webkit-backdrop-filter: blur(var(--blur, 10px));
+      backdrop-filter: blur(var(--blur, 10px));
+      /* gradient base */
+      background: linear-gradient(180deg,
+        rgba(240, 240, 240, 0.06) 0%,
+        transparent 40%,
+        rgba(17, 36, 53, 0.14) 100%);
+      /* edges acentuadas (sem virar barra de ferro) */
+      box-shadow:
+        inset 1px 0 0 rgba(240, 240, 240, 0.18),
+        inset -1px 0 0 rgba(17, 36, 53, 0.35);
+      transform-origin: center;
+      animation: glassBreathe var(--dur, 7s) ease-in-out infinite alternate;
+    }
+    /* Camada reativa ao mouse — quanto mais perto, mais brilhante/colorida a faixa */
+    .hero-glass-strip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(240, 240, 240, 0.45) 0%,
+        rgba(147, 166, 185, 0.32) 35%,
+        rgba(55, 76, 96, 0.18) 75%,
+        rgba(17, 36, 53, 0.05) 100%);
+      opacity: var(--intensity, 0);
+      transition: opacity .35s ease-out;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+    @keyframes glassBreathe {
+      0%   { transform: scaleX(1);    opacity: 0.94; }
+      100% { transform: scaleX(1.03); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-glass-strip { animation: none !important; }
+      .hero-glass-strip::before { transition: none !important; }
+    }
+
+    /* Texto do hero centralizado, em #f0f0f0 (max white) */
+    .hero .display { color: #f0f0f0; }
+    .hero .display em { color: #f0f0f0; }
+    .hero .lede {
+      color: rgba(240, 240, 240, 0.92);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero .lede strong { color: #f0f0f0; }
+    .hero .eyebrow { color: #f0f0f0; }
+    .hero .eyebrow::before { background: rgba(240, 240, 240, 0.7); }
     .hero .pill {
-      color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.4);
+      color: #f0f0f0;
+      border-color: rgba(240, 240, 240, 0.4);
     }
+    .hero-eyebrow-row { justify-content: center; }
+    .hero-cta-row { justify-content: center; }
+    /* CTAs do hero: ambos com outline verde, preenchem no hover */
+    .hero .btn-primary,
     .hero .btn-ghost {
-      color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.4);
+      background: transparent;
+      color: var(--cta);
+      border: 1px solid var(--cta);
     }
+    .hero .btn-primary:hover,
     .hero .btn-ghost:hover {
-      background: #FFFFFF;
-      color: var(--ink-deep);
-      border-color: #FFFFFF;
+      background: var(--cta);
+      color: var(--cta-ink);
+      border-color: var(--cta);
+      transform: translateY(-1px);
     }
+    /* remove a seta do CTA primário no hero */
+    .hero .btn-arrow::after { content: none; }
+
     .hero-eyebrow-row {
       display: flex;
       gap: 14px;
@@ -421,39 +491,112 @@
       align-items: end;
       margin-bottom: clamp(40px, 6vw, 64px);
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: clamp(20px, 2.4vw, 36px);
-      border-top: 1px solid var(--line);
-      padding-top: 48px;
+    /* Section 2 — editorial limpa: tipografia + hairlines, sem caixas */
+    .stats-section {
+      position: relative;
+      padding: clamp(88px, 11vw, 144px) 0;
     }
-    .stat {
+    .stats-editorial {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(40px, 5vw, 80px);
+      align-items: start;
+      border-top: 1px solid var(--line);
+      padding-top: clamp(48px, 6vw, 80px);
+    }
+    .stat-cell {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: clamp(20px, 2.4vw, 28px);
     }
-    .stat-num {
+    .stat-cell .stat-num {
       font-family: var(--font-display);
-      font-weight: 300;
-      font-size: clamp(44px, 5.6vw, 72px);
-      line-height: 1;
-      letter-spacing: -0.03em;
+      font-size: clamp(64px, 9.2vw, 128px);
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
       color: var(--ink-deep);
     }
-    .stat-num sup { font-size: 0.45em; font-weight: 400; vertical-align: super; margin-left: 2px; }
+    .stat-cell .stat-num strong { font-weight: 700; }
+    .stat-cell .stat-num sup {
+      font-size: 0.35em;
+      font-weight: 400;
+      vertical-align: super;
+      margin-left: 4px;
+    }
+    .stat-rule {
+      display: block;
+      width: 56px;
+      height: 1px;
+      background: var(--ink-deep);
+      opacity: 0.45;
+    }
+    .stat-cell .stat-label {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      max-width: 30ch;
+      margin: 0;
+    }
+    .stats-section .stats-source {
+      margin-top: clamp(56px, 7vw, 88px);
+      font-size: 12px;
+      color: var(--ink-soft);
+      letter-spacing: 0.02em;
+    }
+
+    .pill-stat {
+      padding: clamp(28px, 3.5vw, 44px) clamp(18px, 2.5vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .pill-stat:first-child { border-left: 0; }
+    /* Stats dentro do pill ficam mais compactas */
+    .pill-stat .stat-num {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 600;
+      line-height: 1;
+    }
+    .pill-stat .stat-label {
+      max-width: 26ch;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    /* Stats em fundo escuro */
+    .section-deep .stat-num { color: var(--ink-inv); }
+    .section-deep .stat-label { color: rgba(240, 240, 240, 0.78); }
+    .cinematic-section .stats-source {
+      display: block;
+      margin-top: clamp(28px, 3vw, 40px);
+      font-size: 12px;
+      color: rgba(240, 240, 240, 0.4);
+      letter-spacing: 0.02em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cinematic-spot { animation: none !important; }
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(56px, 8.2vw, 120px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--ink-deep);
+    }
+    .stat-num strong { font-weight: 600; }
+    .stat-num sup { font-size: 0.4em; font-weight: 400; vertical-align: super; margin-left: 2px; }
     .stat-label {
       font-size: 15px;
       line-height: 1.45;
       color: var(--ink-body);
-      max-width: 24ch;
-    }
-    .stats-source {
-      grid-column: 1 / -1;
-      margin-top: 32px;
-      font-size: 12px;
-      color: var(--ink-soft);
-      letter-spacing: 0.02em;
+      max-width: 38ch;
     }
 
     /* ============================================
@@ -863,7 +1006,10 @@
       }
       .hero { aspect-ratio: auto; min-height: 480px; }
       .hero-content > div { max-width: 100%; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-editorial {
+        grid-template-columns: 1fr;
+        gap: clamp(40px, 7vw, 56px);
+      }
       .features,
       .protocols,
       .tips,
@@ -931,25 +1077,17 @@
        HERO — 16:9, preparado pra vídeo de fundo
        ================================ -->
   <section class="hero" id="top">
-    <!-- camada de mídia 16:9 — vídeo por trás de tudo -->
+    <!-- camada de mídia: painéis de vidro reagindo ao mouse (sweep idle automático) -->
     <div class="hero-media" aria-hidden="true">
-      <video autoplay muted loop playsinline preload="auto">
-        <source src="assets/videos/hero-laser.mp4" type="video/mp4" />
-      </video>
+      <div class="hero-glass" id="heroGlass"></div>
     </div>
 
     <!-- camada de texto sobreposta -->
     <div class="wrap hero-content">
       <div>
-        <div class="hero-eyebrow-row reveal">
-          <span class="eyebrow">Plataforma Er:YAG</span>
-          <span class="pill">Engenharia alemã</span>
-        </div>
-
-        <h1 class="display reveal" data-delay="1">
-          <em>Máxima</em> precisão.<br />
-          <em>Mínimo</em> calor.<br />
-          Performance clínica <em>incomparável</em>.
+        <h1 class="display reveal">
+          <span class="display-soft">Máxima precisão. Mínimo calor.</span><br />
+          Performance clínica incomparável.
         </h1>
 
         <p class="lede reveal" data-delay="2">
@@ -957,7 +1095,7 @@
         </p>
 
         <div class="hero-cta-row reveal" data-delay="3">
-          <a href="#contato" class="btn btn-primary btn-arrow">Quero saber mais</a>
+          <a href="#contato" class="btn btn-primary">Quero saber mais</a>
           <a href="#tecnologia" class="btn btn-ghost">Conhecer a tecnologia</a>
         </div>
       </div>
@@ -967,39 +1105,36 @@
   <!-- ================================
        ENGENHARIA ALEMÃ / ASCLEPION
        ================================ -->
-  <section id="tecnologia" class="section-alt">
+  <section id="tecnologia" class="stats-section">
     <div class="wrap">
       <div class="stats-intro">
         <div class="reveal">
           <span class="eyebrow">Asclepion Laser Technologies</span>
-          <h2 class="h2" style="margin-top:18px;">
-            <em>Engenharia alemã</em> em tecnologia de alta performance.
-          </h2>
+          <h2 class="h2" style="margin-top:18px;">Engenharia alemã em tecnologia de alta performance.</h2>
         </div>
         <p class="lede reveal" data-delay="1">
           O Dermablate é desenvolvido pela <strong>Asclepion Laser Technologies</strong>, uma das empresas líderes globais em tecnologias médicas baseadas em laser.
         </p>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat reveal">
-          <span class="stat-num">Top 4</span>
-          <span class="stat-label">Players do mercado mundial de lasers médicos.</span>
-        </div>
-        <div class="stat reveal" data-delay="1">
-          <span class="stat-num">45<sup>+</sup></span>
-          <span class="stat-label">Anos desenvolvendo soluções dermatológicas, estéticas e cirúrgicas.</span>
-        </div>
-        <div class="stat reveal" data-delay="2">
-          <span class="stat-num">70<sup>+</sup></span>
-          <span class="stat-label">Países com clínicas e centros especializados que utilizam a tecnologia.</span>
-        </div>
-        <div class="stat reveal" data-delay="3">
-          <span class="stat-num"><em>DE</em></span>
-          <span class="stat-label">Engenharia alemã de precisão, segurança e controle energético.</span>
-        </div>
-        <p class="stats-source">*Fonte: Asclepion Laser Technologies — dados institucionais globais.</p>
+      <div class="stats-editorial">
+        <article class="stat-cell reveal">
+          <span class="stat-num">Top <strong>4</strong></span>
+          <span class="stat-rule" aria-hidden="true"></span>
+          <p class="stat-label">Players do mercado mundial de lasers médicos.</p>
+        </article>
+        <article class="stat-cell reveal" data-delay="1">
+          <span class="stat-num"><span data-counter="45">0</span><sup>+</sup></span>
+          <span class="stat-rule" aria-hidden="true"></span>
+          <p class="stat-label">Anos desenvolvendo soluções dermatológicas, estéticas e cirúrgicas.</p>
+        </article>
+        <article class="stat-cell reveal" data-delay="2">
+          <span class="stat-num"><span data-counter="70">0</span><sup>+</sup></span>
+          <span class="stat-rule" aria-hidden="true"></span>
+          <p class="stat-label">Países com clínicas e centros especializados que utilizam a tecnologia.</p>
+        </article>
       </div>
+      <p class="stats-source">*Fonte: Asclepion Laser Technologies — dados institucionais globais.</p>
     </div>
   </section>
 
@@ -1348,12 +1483,76 @@
     // 1) Ano no footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 1.5) Vídeo do hero em playback mais lento (sensação cinematográfica)
-    const heroVideo = document.querySelector('.hero-media video');
-    if (heroVideo) {
-      heroVideo.playbackRate = 0.6;
-      heroVideo.addEventListener('loadedmetadata', () => { heroVideo.playbackRate = 0.6; });
+    // 1.5) Gera 12 painéis de vidro com backdrop-blur variável (hero + asclepion, mesma sequência)
+    const blurs = [6, 16, 10, 22, 8, 18, 12, 24, 7, 20, 14, 26];
+    const populateGlass = (container) => {
+      blurs.forEach((blur, i) => {
+        const strip = document.createElement('div');
+        strip.className = 'hero-glass-strip';
+        strip.style.setProperty('--blur', blur + 'px');
+        strip.style.setProperty('--dur', (5 + (i % 4) * 1.5) + 's');
+        strip.style.animationDelay = (i * 0.3) + 's';
+        container.appendChild(strip);
+      });
+    };
+    const heroGlass = document.getElementById('heroGlass');
+    if (heroGlass) populateGlass(heroGlass);
+
+    // 1.6) Faixas reagem ao mouse + sweep automático direita→esquerda no estado idle
+    const heroEl = document.querySelector('.hero');
+    if (heroEl && heroGlass) {
+      const strips = heroGlass.children;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const updateIntensities = (x) => {
+        const heroRect = heroEl.getBoundingClientRect();
+        const radius = heroRect.width * 0.28;
+        for (let i = 0; i < strips.length; i++) {
+          const strip = strips[i];
+          const stripRect = strip.getBoundingClientRect();
+          const stripCenter = stripRect.left - heroRect.left + stripRect.width / 2;
+          const dist = Math.abs(x - stripCenter);
+          const intensity = Math.max(0, 1 - dist / radius);
+          strip.style.setProperty('--intensity', (intensity * intensity).toFixed(3));
+        }
+      };
+
+      // Sweep idle: cursor virtual atravessa o hero da direita pra esquerda em loop
+      let autoActive = !prefersReduced;
+      let autoStartTime = performance.now();
+      const SWEEP_PERIOD = 6500; // ciclo completo (atravessar + pausa)
+      const tickAuto = () => {
+        if (!autoActive) return;
+        const heroWidth = heroEl.getBoundingClientRect().width;
+        const t = (performance.now() - autoStartTime) % SWEEP_PERIOD;
+        const progress = t / SWEEP_PERIOD;
+        // X virtual: começa fora à direita, termina fora à esquerda (fade-in e fade-out naturais)
+        const x = (heroWidth + 220) - progress * (heroWidth + 440);
+        updateIntensities(x);
+        requestAnimationFrame(tickAuto);
+      };
+
+      heroEl.addEventListener('mousemove', (e) => {
+        if (autoActive) autoActive = false;
+        const rect = heroEl.getBoundingClientRect();
+        updateIntensities(e.clientX - rect.left);
+      }, { passive: true });
+
+      heroEl.addEventListener('mouseleave', () => {
+        if (prefersReduced) {
+          for (let i = 0; i < strips.length; i++) strips[i].style.setProperty('--intensity', '0');
+          return;
+        }
+        if (!autoActive) {
+          autoActive = true;
+          autoStartTime = performance.now();
+          tickAuto();
+        }
+      });
+
+      if (autoActive) tickAuto();
     }
+
 
     // 2) Nav: scroll state + mobile toggle
     const nav = document.getElementById('nav');
@@ -1380,6 +1579,28 @@
         navToggle.setAttribute('aria-expanded', 'false');
       });
     });
+
+    // 2) Count-up dos números (0 → target) quando entram na tela
+    const animateCounter = (el, end, duration) => {
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+        el.textContent = Math.round(end * eased);
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.dataset.counter, 10);
+          if (!isNaN(target)) animateCounter(entry.target, target, 1600);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
 
     // 3) Reveal on scroll (IntersectionObserver)
     const io = new IntersectionObserver((entries) => {
