@@ -509,7 +509,7 @@
     .stats-intro {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(32px, 5vw, 64px);
+      gap: clamp(36px, 5vw, 72px);
       align-items: end;
       margin-bottom: clamp(40px, 6vw, 64px);
     }
@@ -661,16 +661,24 @@
        ============================================ */
     .diferenciais-grid {
       display: grid;
-      grid-template-columns: 1fr 1.05fr;
-      gap: clamp(40px, 6vw, 80px);
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 5vw, 72px);
+      align-items: stretch;
     }
     .diferenciais-intro {
       display: flex;
       flex-direction: column;
       gap: clamp(16px, 1.6vw, 22px);
+      justify-content: space-between;
+      min-height: 100%;
     }
-    .diferenciais-intro .h2 { margin-top: 4px; }
+    .diferenciais-intro .h2 {
+      margin-top: 4px;
+      font-weight: 300;
+    }
+    .diferenciais-intro .h2 strong {
+      font-weight: 700;
+    }
     .diferenciais-intro .lede { max-width: 38ch; }
     .diferenciais-cta { margin-top: clamp(12px, 1.5vw, 18px); }
 
@@ -683,16 +691,36 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      padding: 18px 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--line-soft);
+      min-height: 142px;
+      padding: clamp(18px, 2vw, 24px);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(236, 237, 238, 0.72)),
+        linear-gradient(135deg, rgba(236, 237, 238, 0.96) 0%, rgba(143, 163, 184, 0.34) 100%);
+      border: 1px solid rgba(20, 38, 57, 0.08);
       border-radius: var(--radius-lg);
-      transition: background .25s ease, border-color .25s ease, transform .25s ease;
+      box-shadow: 0 14px 36px -30px rgba(20, 38, 57, 0.45);
+      transition: background .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    .feature-item:nth-child(2) {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(236, 237, 238, 0.62)),
+        linear-gradient(135deg, rgba(143, 163, 184, 0.44) 0%, rgba(236, 237, 238, 0.94) 100%);
+    }
+    .feature-item:nth-child(3) {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(236, 237, 238, 0.54)),
+        linear-gradient(135deg, rgba(56, 73, 92, 0.18) 0%, rgba(143, 163, 184, 0.42) 58%, rgba(236, 237, 238, 0.86) 100%);
+    }
+    .feature-item:nth-child(4) {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(236, 237, 238, 0.5)),
+        linear-gradient(135deg, rgba(20, 38, 57, 0.16) 0%, rgba(56, 73, 92, 0.22) 42%, rgba(143, 163, 184, 0.36) 100%);
     }
     .feature-item:hover {
       background: var(--bg-card-clean);
       border-color: var(--line);
       transform: translateY(-2px);
+      box-shadow: 0 18px 44px -32px rgba(20, 38, 57, 0.56);
     }
     .feature-mark {
       flex-shrink: 0;
@@ -769,8 +797,8 @@
        ============================================ */
     .versatility-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: clamp(40px, 5vw, 72px);
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 5vw, 72px);
       align-items: start;
     }
     .indications {
@@ -919,8 +947,8 @@
     }
     .form-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: clamp(40px, 6vw, 80px);
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 5vw, 72px);
       align-items: start;
     }
     .form-copy ul {
@@ -1154,6 +1182,11 @@
         background: var(--bg-base);
         border-bottom: 1px solid var(--line);
       }
+      .nav.menu-open .brand img { filter: none; }
+      .nav.menu-open .nav-toggle span,
+      .nav.menu-open .nav-toggle span::before,
+      .nav.menu-open .nav-toggle span::after { background: var(--ink-deep); }
+      .nav.menu-open .nav-toggle.open span { background: transparent; }
       .nav.menu-open .nav-links {
         display: flex;
         position: absolute;
@@ -1169,6 +1202,7 @@
         padding: 14px 24px;
         border-top: 1px solid var(--line-soft);
         font-size: 15px;
+        color: var(--ink-deep);
       }
       .nav.menu-open .nav-cta { margin: 12px 24px 0; align-self: flex-start; }
       .features-list { grid-template-columns: 1fr; }
@@ -1279,8 +1313,8 @@
         <div class="diferenciais-intro">
           <span class="eyebrow reveal">Diferenciais estratégicos</span>
           <h2 class="h2 reveal" data-delay="1">
-            Precisão que <em>preserva</em>.<br />
-            Energia que <em>regenera</em>.
+            Precisão que <strong>preserva</strong>.<br />
+            Energia que <strong>regenera</strong>.
           </h2>
           <p class="lede reveal" data-delay="2">
             Características que tornam o Dermablate uma plataforma única para resurfacing e regeneração da pele.
