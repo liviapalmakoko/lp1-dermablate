@@ -120,6 +120,13 @@
       height: 1px;
       background: var(--accent);
     }
+    .diferenciais-intro .eyebrow::after,
+    #protocolos .eyebrow::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
     .display {
       font-family: var(--font-display);
       font-weight: 700;
@@ -521,6 +528,7 @@
     /* Section 3 (diferenciais) sai com padding-top menor pra encostar na seção 2 */
     #diferenciais {
       padding-top: clamp(32px, 4vw, 56px);
+      padding-bottom: clamp(66px, 7vw, 100px);
     }
     /* Tecnologia/Asclepion section — 2-col: imagem dita altura, texto top + pill bottom */
     .tecnologia-grid {
@@ -789,44 +797,215 @@
       display: flex;
       justify-content: center;
     }
-
     /* ============================================
-       PROTOCOLOS COOLLASER (4 cards em fundo deep)
+       PROTOCOLOS COOLLASER (selos circulares interativos)
        ============================================ */
+    #protocolos {
+      padding: clamp(56px, 6vw, 86px) 0 clamp(64px, 7vw, 92px);
+      margin-top: calc(clamp(34px, 4.4vw, 66px) * -1);
+      overflow: hidden;
+      clip-path: ellipse(148% 100% at 50% 100%);
+    }
+    #protocolos .stats-intro {
+      margin-bottom: 0;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+    #protocolos .stats-intro > div {
+      max-width: none;
+    }
+    #protocolos .eyebrow {
+      justify-content: center;
+    }
+    #protocolos .h2 {
+      font-weight: 300;
+      font-size: clamp(28px, 2.75vw, 38px);
+      white-space: nowrap;
+    }
+    #protocolos .lede {
+      max-width: 58ch;
+      margin: 14px auto 0;
+      font-size: clamp(13.5px, 1.05vw, 15px);
+      color: rgba(236, 237, 238, 0.72);
+    }
     .protocols {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: clamp(40px, 5vw, 56px);
+      --protocol-size: clamp(184px, 16.6vw, 230px);
+      margin-top: clamp(20px, 2.8vw, 34px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 2.8vw, 40px);
+      min-width: 0;
+      padding: clamp(14px, 2vw, 24px) 0 0;
     }
     .protocol {
-      padding: clamp(28px, 3.4vw, 40px);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(236, 237, 238, 0.12);
-      border-radius: var(--radius);
+      flex: 0 0 var(--protocol-size);
+      width: var(--protocol-size);
+      height: var(--protocol-size);
+      min-width: var(--protocol-size);
+      min-height: var(--protocol-size);
+      padding: clamp(24px, 2.6vw, 34px);
+      margin-left: 0;
+      background: transparent;
+      border: 1px solid rgba(236, 237, 238, 0.08);
+      border-radius: 50%;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      transition: background .25s ease, border-color .25s ease, transform .25s ease;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      position: relative;
+      outline: none;
+      overflow: hidden;
+      box-shadow: none;
+      transform-origin: center;
+      transition: border-color .42s ease, transform .34s cubic-bezier(.2,.7,.2,1), opacity .25s ease, box-shadow .42s ease;
     }
-    .protocol:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(236, 237, 238, 0.22);
-      transform: translateY(-2px);
+    .protocol:first-child { margin-left: 0; }
+    .protocol::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(236, 237, 238, 0.13), rgba(236, 237, 238, 0.065) 56%, rgba(236, 237, 238, 0.035) 100%);
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity .48s ease, transform .48s cubic-bezier(.2,.7,.2,1);
+      pointer-events: none;
+    }
+    .protocol::after {
+      content: "";
+      position: absolute;
+      inset: 24%;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(236, 237, 238, 0.08), transparent 68%);
+      opacity: 0.7;
+      transition: opacity .32s ease, transform .32s ease;
+      pointer-events: none;
+    }
+    .protocol:hover,
+    .protocol:focus-visible,
+    .protocol.is-active,
+    .protocol.reveal:hover,
+    .protocol.reveal:focus-visible,
+    .protocol.reveal.is-active {
+      z-index: 2;
+      opacity: 1;
+      border-color: rgba(236, 237, 238, 0.5);
+      box-shadow: 0 18px 62px -48px rgba(236, 237, 238, 0.5);
+      transform: translateY(-8px) scale(1.11);
+    }
+    .protocol:hover::before,
+    .protocol:focus-visible::before,
+    .protocol.is-active::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .protocol:hover::after,
+    .protocol:focus-visible::after,
+    .protocol.is-active::after {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+    .protocol-main,
+    .protocol-hover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .protocol-hover {
+      position: absolute;
+      inset: clamp(24px, 2.7vw, 34px);
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+      pointer-events: none;
+      gap: 9px;
+    }
+    .protocol:hover .protocol-main,
+    .protocol:focus-visible .protocol-main,
+    .protocol.is-active .protocol-main {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    .protocol:hover .protocol-hover,
+    .protocol:focus-visible .protocol-hover,
+    .protocol.is-active .protocol-hover {
+      opacity: 1;
+      transform: none;
+    }
+    .protocol-icon {
+      width: clamp(42px, 4.6vw, 58px);
+      height: clamp(42px, 4.6vw, 58px);
+      color: rgba(236, 237, 238, 0.76);
+    }
+    .protocol-hover .protocol-icon {
+      width: clamp(30px, 3vw, 40px);
+      height: clamp(30px, 3vw, 40px);
+      color: var(--ink-inv);
+    }
+    .protocol-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      stroke-width: 1.45;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      overflow: visible;
+    }
+    .protocol-icon .motion-breathe { animation: protocolBreathe 3.2s ease-in-out infinite; }
+    .protocol-icon .motion-drift { animation: protocolDrift 3.6s ease-in-out infinite; }
+    .protocol-icon .motion-pulse { animation: protocolPulse 2.8s ease-in-out infinite; }
+    .protocol-icon .motion-spin { animation: protocolSpin 10s linear infinite; transform-origin: center; }
+    .protocols:hover .protocol:not(:hover) .protocol-icon *,
+    .protocols:focus-within .protocol:not(:focus-visible) .protocol-icon *,
+    .protocols:has(.protocol.is-active) .protocol:not(.is-active) .protocol-icon * {
+      animation-play-state: paused;
+    }
+    @keyframes protocolBreathe {
+      0%, 100% { transform: scale(1); opacity: .72; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    @keyframes protocolDrift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-1.5px); }
+    }
+    @keyframes protocolPulse {
+      0%, 100% { opacity: .58; transform: scale(.96); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    @keyframes protocolSpin {
+      to { transform: rotate(360deg); }
     }
     .protocol-name {
       font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      color: var(--ink-inv);
+      font-size: clamp(11px, 0.9vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: rgba(236, 237, 238, 0.76);
+      position: relative;
+      z-index: 1;
     }
     .protocol-name sup { font-size: 0.5em; vertical-align: super; }
-    .protocol p {
-      font-size: 15.5px;
-      line-height: 1.55;
-      color: rgba(236, 237, 238, 0.78);
+    .protocol-hover .protocol-name {
+      color: var(--ink-inv);
+      font-size: clamp(12px, 0.96vw, 14px);
+    }
+    .protocol-hover p {
+      max-width: 18ch;
       margin: 0;
+      font-size: clamp(12px, 0.98vw, 14px);
+      line-height: 1.42;
+      color: rgba(236, 237, 238, 0.78);
     }
 
     /* ============================================
@@ -869,6 +1048,26 @@
       padding-top: 24px;
     }
     .indications .more::before { display: none; }
+    #aplicacoes.section-deep {
+      padding-top: clamp(62px, 7vw, 96px);
+      background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 100%);
+    }
+    #aplicacoes.section-deep .indications {
+      border-top-color: rgba(236, 237, 238, 0.16);
+    }
+    #aplicacoes.section-deep .indications li {
+      color: rgba(236, 237, 238, 0.82);
+      border-bottom-color: rgba(236, 237, 238, 0.16);
+    }
+    #aplicacoes.section-deep .indications li::before {
+      background: rgba(168, 181, 160, 0.9);
+    }
+    #aplicacoes.section-deep .indications .more {
+      color: rgba(236, 237, 238, 0.62);
+    }
+    #ponteiras {
+      margin-top: -1px;
+    }
 
     /* ============================================
        PONTEIRAS (4 cards)
@@ -1194,6 +1393,22 @@
       .hero-content > div { max-width: 100%; }
       .tecnologia-grid { grid-template-columns: 1fr; }
       .tecnologia-image { max-width: 420px; margin: 0 auto; }
+      #protocolos .h2 { white-space: normal; }
+      .protocols {
+        --protocol-size: clamp(146px, 46vw, 190px);
+        gap: 0;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 22px clamp(20px, 5vw, 36px) 30px;
+        margin-inline: calc(clamp(20px, 4vw, 40px) * -1);
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+      .protocol {
+        margin-left: 12px;
+        scroll-snap-align: center;
+      }
+      .protocol:first-child { margin-left: 0; }
       .bignumbers-pill {
         grid-template-columns: 1fr;
         border-radius: var(--radius-lg);
@@ -1205,7 +1420,6 @@
       .bignumbers-pill .pill-stat:first-child { border-top: 0; }
       .diferenciais-grid { grid-template-columns: 1fr; }
       .diferenciais-intro .lede { max-width: 56ch; }
-      .protocols,
       .tips,
       .features-list,
       .indications { grid-template-columns: 1fr; }
@@ -1443,30 +1657,131 @@
         <div class="reveal">
           <span class="eyebrow">Protocolos COOLLASER™</span>
           <h2 class="h2" style="margin-top:18px;">
-            Ciência da regeneração em <em>protocolos personalizados</em>.
+            Protocolos para <strong>áreas específicas</strong> da face.
           </h2>
+          <p class="lede reveal" data-delay="1">
+            Abordagens desenvolvidas para indicações específicas, com precisão e previsibilidade em cada região.
+          </p>
         </div>
-        <p class="lede reveal" data-delay="1">
-          Os protocolos <strong>COOLLASER™</strong> traduzem a ciência da regeneração cutânea em tratamentos com resultados previsíveis, naturais e progressivos — com parâmetros clínicos padronizados que garantem <strong>segurança e consistência em cada sessão</strong>.
-        </p>
       </div>
 
-      <div class="protocols">
-        <article class="protocol reveal">
-          <div class="protocol-name">COOLBLEPH<sup>®</sup></div>
-          <p>Tratamento não cirúrgico para pálpebras que reduz sinais de cansaço e rejuvenesce o olhar.</p>
+      <div class="protocols" aria-label="Protocolos COOLLASER">
+        <article class="protocol reveal" tabindex="0" aria-label="COOLBLEPH, tratamento periocular">
+          <div class="protocol-main">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3.5 12s3.2-5 8.5-5 8.5 5 8.5 5-3.2 5-8.5 5-8.5-5-8.5-5Z" />
+                <circle class="motion-breathe" cx="12" cy="12" r="2.6" />
+                <path class="motion-drift" d="M7.5 7.6 6.4 5.8" />
+                <path class="motion-drift" d="M12 6.9V4.8" />
+                <path class="motion-drift" d="M16.5 7.6l1.1-1.8" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLBLEPH<sup>®</sup></div>
+          </div>
+          <div class="protocol-hover" aria-hidden="true">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3.5 12s3.2-5 8.5-5 8.5 5 8.5 5-3.2 5-8.5 5-8.5-5-8.5-5Z" />
+                <circle cx="12" cy="12" r="2.6" />
+                <path d="M7.5 7.6 6.4 5.8" />
+                <path d="M12 6.9V4.8" />
+                <path d="M16.5 7.6l1.1-1.8" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLBLEPH<sup>®</sup></div>
+            <p>Tratamento não cirúrgico para pálpebras que rejuvenesce o olhar.</p>
+          </div>
         </article>
-        <article class="protocol reveal" data-delay="1">
-          <div class="protocol-name">COOLYELLOW<sup>®</sup></div>
-          <p>Combina ação vascular e renovação da pele para um tom mais uniforme e limpo.</p>
+
+        <article class="protocol reveal" data-delay="1" tabindex="0" aria-label="COOLYELLOW, uniformização do tom da pele">
+          <div class="protocol-main">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <g class="motion-spin">
+                  <path d="M12 2.8v2.4" />
+                  <path d="M12 18.8v2.4" />
+                  <path d="M4.2 4.2l1.7 1.7" />
+                  <path d="M18.1 18.1l1.7 1.7" />
+                  <path d="M2.8 12h2.4" />
+                  <path d="M18.8 12h2.4" />
+                  <path d="M4.2 19.8l1.7-1.7" />
+                  <path d="M18.1 5.9l1.7-1.7" />
+                </g>
+                <circle class="motion-pulse" cx="12" cy="12" r="3.6" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLYELLOW<sup>®</sup></div>
+          </div>
+          <div class="protocol-hover" aria-hidden="true">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3.6" />
+                <path d="M12 2.8v2.4" />
+                <path d="M12 18.8v2.4" />
+                <path d="M4.2 4.2l1.7 1.7" />
+                <path d="M18.1 18.1l1.7 1.7" />
+                <path d="M2.8 12h2.4" />
+                <path d="M18.8 12h2.4" />
+                <path d="M4.2 19.8l1.7-1.7" />
+                <path d="M18.1 5.9l1.7-1.7" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLYELLOW<sup>®</sup></div>
+            <p>Ação vascular e renovação para um tom mais uniforme e luminoso.</p>
+          </div>
         </article>
-        <article class="protocol reveal" data-delay="2">
-          <div class="protocol-name">COOLORA<sup>®</sup></div>
-          <p>Suaviza rugas ao redor da boca, promovendo maior firmeza e uniformidade da pele.</p>
+
+        <article class="protocol reveal" data-delay="2" tabindex="0" aria-label="COOLORA, região perioral">
+          <div class="protocol-main">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path class="motion-drift" d="M4 12.5c2.4-2.2 4.4-3.3 6.2-3.3 1 0 1.6.4 1.8.4s.8-.4 1.8-.4c1.8 0 3.8 1.1 6.2 3.3" />
+                <path d="M4 12.5c2.5 2 5.2 3 8 3s5.5-1 8-3" />
+                <path d="M7.2 12.7h9.6" />
+                <path d="M8.2 8.1c.8-1.1 2.1-1.8 3.8-1.8s3 .7 3.8 1.8" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLORA<sup>®</sup></div>
+          </div>
+          <div class="protocol-hover" aria-hidden="true">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 12.5c2.4-2.2 4.4-3.3 6.2-3.3 1 0 1.6.4 1.8.4s.8-.4 1.8-.4c1.8 0 3.8 1.1 6.2 3.3" />
+                <path d="M4 12.5c2.5 2 5.2 3 8 3s5.5-1 8-3" />
+                <path d="M7.2 12.7h9.6" />
+                <path d="M8.2 8.1c.8-1.1 2.1-1.8 3.8-1.8s3 .7 3.8 1.8" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLORA<sup>®</sup></div>
+            <p>Suaviza rugas ao redor da boca e refina a textura.</p>
+          </div>
         </article>
-        <article class="protocol reveal" data-delay="3">
-          <div class="protocol-name">COOLVIVE<sup>®</sup></div>
-          <p>Protocolo voltado para a região do pescoço que melhora a firmeza e reduz a flacidez.</p>
+
+        <article class="protocol reveal" data-delay="3" tabindex="0" aria-label="COOLVIVE, pescoço e firmeza">
+          <div class="protocol-main">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path class="motion-drift" d="M9 3.5c.4 2.9.2 5.1-.7 6.8-.7 1.4-1.8 2.4-3.1 3" />
+                <path class="motion-drift" d="M15 3.5c-.4 2.9-.2 5.1.7 6.8.7 1.4 1.8 2.4 3.1 3" />
+                <path d="M7.2 15.2c1.2.9 2.8 1.4 4.8 1.4s3.6-.5 4.8-1.4" />
+                <path d="M8.3 19.3c1 .7 2.2 1 3.7 1s2.7-.3 3.7-1" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLVIVE<sup>®</sup></div>
+          </div>
+          <div class="protocol-hover" aria-hidden="true">
+            <span class="protocol-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 3.5c.4 2.9.2 5.1-.7 6.8-.7 1.4-1.8 2.4-3.1 3" />
+                <path d="M15 3.5c-.4 2.9-.2 5.1.7 6.8.7 1.4 1.8 2.4 3.1 3" />
+                <path d="M7.2 15.2c1.2.9 2.8 1.4 4.8 1.4s3.6-.5 4.8-1.4" />
+                <path d="M8.3 19.3c1 .7 2.2 1 3.7 1s2.7-.3 3.7-1" />
+              </svg>
+            </span>
+            <div class="protocol-name">COOLVIVE<sup>®</sup></div>
+            <p>Melhora a firmeza do pescoço e reduz sinais de flacidez.</p>
+          </div>
         </article>
       </div>
     </div>
@@ -1475,7 +1790,7 @@
   <!-- ================================
        VERSATILIDADE DE APLICAÇÕES
        ================================ -->
-  <section id="aplicacoes" class="section-alt">
+  <section id="aplicacoes" class="section-deep">
     <div class="wrap">
       <div class="versatility-grid">
         <div>
@@ -1865,6 +2180,17 @@
         navToggle.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // 2.5) Protocolos: mantém o detalhe acessível em clique/toque e teclado
+    const protocolItems = document.querySelectorAll('.protocol');
+    protocolItems.forEach(item => {
+      const activateProtocol = () => {
+        protocolItems.forEach(protocol => protocol.classList.remove('is-active'));
+        item.classList.add('is-active');
+      };
+      item.addEventListener('click', activateProtocol);
+      item.addEventListener('focus', activateProtocol);
     });
 
     // 2) Count-up dos números (0 → target) quando entram na tela
