@@ -661,36 +661,42 @@
        ============================================ */
     .diferenciais-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(36px, 5vw, 72px);
-      align-items: stretch;
+      gap: clamp(30px, 4.5vw, 48px);
     }
     .diferenciais-intro {
       display: flex;
       flex-direction: column;
-      gap: clamp(16px, 1.6vw, 22px);
-      justify-content: space-between;
-      min-height: 100%;
+      align-items: center;
+      text-align: center;
+      gap: clamp(8px, 1vw, 12px);
+      max-width: 1185px;
+      margin: 0 auto;
     }
     .diferenciais-intro .h2 {
-      margin-top: 4px;
+      margin-top: 0;
       font-weight: 300;
+      font-size: clamp(28px, 3vw, 40px);
     }
     .diferenciais-intro .h2 strong {
       font-weight: 700;
     }
-    .diferenciais-intro .lede { max-width: 38ch; }
+    .diferenciais-intro .lede {
+      max-width: none;
+      font-size: clamp(13.5px, 1.05vw, 15px);
+      margin: 0;
+    }
     .diferenciais-cta { margin-top: clamp(12px, 1.5vw, 18px); }
 
     .features-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
     .feature-item {
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      gap: 14px;
+      gap: 16px;
       min-height: 142px;
       padding: clamp(18px, 2vw, 24px);
       background:
@@ -723,20 +729,47 @@
       box-shadow: 0 18px 44px -32px rgba(20, 38, 57, 0.56);
     }
     .feature-mark {
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--ink-deep);
-      color: #f0f0f0;
+      width: 42px;
+      height: 42px;
+      color: rgba(20, 38, 57, 0.82);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0;
-      margin-top: 2px;
+    }
+    .feature-mark svg {
+      width: 42px;
+      height: 42px;
+      stroke: currentColor;
+      stroke-width: 1.35;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      overflow: visible;
+    }
+    .feature-mark .pulse {
+      transform-origin: center;
+      animation: iconPulse 3.8s ease-in-out infinite;
+    }
+    .feature-mark .drift {
+      animation: iconDrift 3.2s ease-in-out infinite;
+    }
+    .feature-mark .spin {
+      transform-origin: center;
+      animation: iconSpin 11s linear infinite;
+    }
+    .feature-mark .node-a { animation-delay: 0s; }
+    .feature-mark .node-b { animation-delay: .55s; }
+    .feature-mark .node-c { animation-delay: 1.1s; }
+    @keyframes iconPulse {
+      0%, 100% { opacity: .58; transform: scale(0.94); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    @keyframes iconDrift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(2px); }
+    }
+    @keyframes iconSpin {
+      to { transform: rotate(360deg); }
     }
     .feature-item h3 {
       font-family: var(--font-display);
@@ -751,6 +784,10 @@
       line-height: 1.5;
       color: var(--ink-mute);
       margin: 0;
+    }
+    .features-cta {
+      display: flex;
+      justify-content: center;
     }
 
     /* ============================================
@@ -1139,7 +1176,8 @@
       .reveal { opacity: 1; transform: none; transition: none; }
       .reveal.tecnologia-image img,
       .tip-media::after,
-      .tip-media img { transform: none; transition: none; }
+      .tip-media img,
+      .feature-mark * { transform: none; transition: none; animation: none !important; }
       html { scroll-behavior: auto; }
     }
 
@@ -1169,6 +1207,7 @@
       .diferenciais-intro .lede { max-width: 56ch; }
       .protocols,
       .tips,
+      .features-list,
       .indications { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
@@ -1313,46 +1352,83 @@
         <div class="diferenciais-intro">
           <span class="eyebrow reveal">Diferenciais estratégicos</span>
           <h2 class="h2 reveal" data-delay="1">
-            Precisão que <strong>preserva</strong>.<br />
-            Energia que <strong>regenera</strong>.
+            Precisão que <strong>preserva</strong>. Energia que <strong>regenera</strong>.
           </h2>
           <p class="lede reveal" data-delay="2">
             Características que tornam o Dermablate uma plataforma única para resurfacing e regeneração da pele.
           </p>
-          <div class="diferenciais-cta reveal" data-delay="3">
-            <a href="#contato" class="btn btn-primary btn-arrow">Quero saber mais</a>
-          </div>
         </div>
 
         <div class="features-list">
           <article class="feature-item reveal">
-            <span class="feature-mark">01</span>
+            <span class="feature-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <g class="spin">
+                  <path d="M12 3v18" />
+                  <path d="M5.6 6.4l12.8 11.2" />
+                  <path d="M18.4 6.4L5.6 17.6" />
+                  <path d="M4 12h16" />
+                </g>
+                <circle class="pulse" cx="12" cy="12" r="2.1" />
+              </svg>
+            </span>
             <div>
               <h3>Ablação a frio real</h3>
               <p>Máxima precisão com mínima difusão térmica.</p>
             </div>
           </article>
           <article class="feature-item reveal" data-delay="1">
-            <span class="feature-mark">02</span>
+            <span class="feature-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 7h16" />
+                <path d="M4 12h16" />
+                <path d="M4 17h16" />
+                <circle class="drift" cx="9" cy="7" r="2" />
+                <circle class="drift" cx="15" cy="12" r="2" />
+                <circle class="drift" cx="11" cy="17" r="2" />
+              </svg>
+            </span>
             <div>
               <h3>Controle energético refinado</h3>
               <p>Energia homogênea em todas as camadas da pele.</p>
             </div>
           </article>
           <article class="feature-item reveal" data-delay="2">
-            <span class="feature-mark">03</span>
+            <span class="feature-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle class="pulse node-a" cx="7" cy="8" r="2.2" />
+                <circle class="pulse node-b" cx="16" cy="7" r="2.2" />
+                <circle class="pulse node-c" cx="12" cy="16" r="2.2" />
+                <path d="M8.8 9.3l2 4.5" />
+                <path d="M14.5 8.8l-1.5 5" />
+                <path d="M9.1 8.1l4.7-.6" />
+              </svg>
+            </span>
             <div>
               <h3>Estímulo de colágeno</h3>
               <p>MicroSpot ativa processos de regeneração cutânea.</p>
             </div>
           </article>
           <article class="feature-item reveal" data-delay="3">
-            <span class="feature-mark">04</span>
+            <span class="feature-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 6h14" />
+                <path d="M5 12h14" />
+                <path d="M5 18h14" />
+                <path class="drift" d="M8 6v4" />
+                <path class="drift" d="M16 12v4" />
+                <path class="drift" d="M11 18v-4" />
+              </svg>
+            </span>
             <div>
               <h3>Protocolos adaptáveis</h3>
               <p>Ajuste fino para os fototipos da pele brasileira.</p>
             </div>
           </article>
+        </div>
+
+        <div class="features-cta reveal" data-delay="3">
+          <a href="#contato" class="btn btn-primary btn-arrow">Quero saber mais</a>
         </div>
       </div>
     </div>
