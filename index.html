@@ -494,52 +494,87 @@
     /* Section 2 — editorial limpa: tipografia + hairlines, sem caixas */
     .stats-section {
       position: relative;
-      padding: clamp(88px, 11vw, 144px) 0;
+      padding: clamp(40px, 5vw, 72px) 0;
     }
-    .stats-editorial {
+    /* Section 3 (diferenciais) sai com padding-top menor pra encostar na seção 2 */
+    #diferenciais {
+      padding-top: clamp(32px, 4vw, 56px);
+    }
+    /* Tecnologia/Asclepion section — 2-col: imagem dita altura, texto top + pill bottom */
+    .tecnologia-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(40px, 5vw, 80px);
-      align-items: start;
-      border-top: 1px solid var(--line);
-      padding-top: clamp(48px, 6vw, 80px);
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(36px, 5vw, 72px);
+      align-items: stretch;
     }
-    .stat-cell {
+    .tecnologia-content {
       display: flex;
       flex-direction: column;
-      gap: clamp(20px, 2.4vw, 28px);
+      gap: clamp(16px, 1.8vw, 24px);
+      justify-content: center;
     }
-    .stat-cell .stat-num {
+    .tecnologia-content .lede {
+      max-width: 36ch;
+    }
+    /* imagem flat — sem box, sem corte, sem efeito; ela dita a altura da seção */
+    .tecnologia-image {
+      display: block;
+    }
+    .tecnologia-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Bignumbers pill — proporção travada (em-based) + zoom pra escalar 100% sem quebrar */
+    .bignumbers-pill {
+      zoom: 0.7;                   /* ← MUDE SÓ ISSO PRA ESCALAR TUDO (browser nivel, sem limites) */
+      font-size: 22px;             /* base "100%" — define a proporção; não mexer */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #112435;
+      border-radius: 999em;
+      margin: 0;
+      width: 100%;
+      max-width: 40em;
+      overflow: hidden;
+      box-shadow: 0 0.9em 2.27em -1em rgba(20, 38, 57, 0.3);
+    }
+    .bignumbers-pill .pill-stat {
+      padding: 1.36em 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45em;
+      align-items: center;
+      text-align: center;
+      border-left: 0.09em solid rgba(240, 240, 240, 0.14);
+    }
+    .bignumbers-pill .pill-stat:first-child { border-left: 0; }
+    .bignumbers-pill .stat-num {
       font-family: var(--font-display);
-      font-size: clamp(64px, 9.2vw, 128px);
-      font-weight: 600;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      color: var(--ink-deep);
+      font-size: 2em;              /* = 22px com base 11px */
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: #f0f0f0;
+      white-space: nowrap;
     }
-    .stat-cell .stat-num strong { font-weight: 700; }
-    .stat-cell .stat-num sup {
-      font-size: 0.35em;
+    .bignumbers-pill .stat-num strong { font-weight: 700; color: #f0f0f0; }
+    .bignumbers-pill .stat-num sup {
+      font-size: 0.4em;
       font-weight: 400;
       vertical-align: super;
-      margin-left: 4px;
+      margin-left: 0.15em;
     }
-    .stat-rule {
-      display: block;
-      width: 56px;
-      height: 1px;
-      background: var(--ink-deep);
-      opacity: 0.45;
-    }
-    .stat-cell .stat-label {
-      font-size: 15px;
-      line-height: 1.55;
-      color: var(--ink-body);
-      max-width: 30ch;
+    .bignumbers-pill .stat-label {
+      font-size: 0.59em;           /* = ~6.5px com base 11px */
+      line-height: 1.4;
+      color: rgba(240, 240, 240, 0.7);
       margin: 0;
     }
     .stats-section .stats-source {
-      margin-top: clamp(56px, 7vw, 88px);
+      display: block;
+      margin-top: clamp(28px, 3vw, 40px);
       font-size: 12px;
       color: var(--ink-soft);
       letter-spacing: 0.02em;
@@ -1006,10 +1041,17 @@
       }
       .hero { aspect-ratio: auto; min-height: 480px; }
       .hero-content > div { max-width: 100%; }
-      .stats-editorial {
+      .tecnologia-grid { grid-template-columns: 1fr; }
+      .tecnologia-image { max-width: 420px; margin: 0 auto; }
+      .bignumbers-pill {
         grid-template-columns: 1fr;
-        gap: clamp(40px, 7vw, 56px);
+        border-radius: var(--radius-lg);
       }
+      .bignumbers-pill .pill-stat {
+        border-left: 0;
+        border-top: 1px solid rgba(240, 240, 240, 0.12);
+      }
+      .bignumbers-pill .pill-stat:first-child { border-top: 0; }
       .features,
       .protocols,
       .tips,
@@ -1107,34 +1149,37 @@
        ================================ -->
   <section id="tecnologia" class="stats-section">
     <div class="wrap">
-      <div class="stats-intro">
-        <div class="reveal">
-          <span class="eyebrow">Asclepion Laser Technologies</span>
-          <h2 class="h2" style="margin-top:18px;">Engenharia alemã em tecnologia de alta performance.</h2>
-        </div>
-        <p class="lede reveal" data-delay="1">
-          O Dermablate é desenvolvido pela <strong>Asclepion Laser Technologies</strong>, uma das empresas líderes globais em tecnologias médicas baseadas em laser.
-        </p>
-      </div>
+      <div class="tecnologia-grid">
+        <div class="tecnologia-content">
+          <div class="reveal">
+            <span class="eyebrow">Asclepion Laser Technologies</span>
+            <h2 class="h2" style="margin-top:18px;">Engenharia alemã em tecnologia de alta performance.</h2>
+          </div>
+          <p class="lede reveal" data-delay="1">
+            O Dermablate é desenvolvido pela <strong>Asclepion Laser Technologies</strong>, uma das empresas líderes globais em tecnologias médicas baseadas em laser.
+          </p>
 
-      <div class="stats-editorial">
-        <article class="stat-cell reveal">
-          <span class="stat-num">Top <strong>4</strong></span>
-          <span class="stat-rule" aria-hidden="true"></span>
-          <p class="stat-label">Players do mercado mundial de lasers médicos.</p>
-        </article>
-        <article class="stat-cell reveal" data-delay="1">
-          <span class="stat-num"><span data-counter="45">0</span><sup>+</sup></span>
-          <span class="stat-rule" aria-hidden="true"></span>
-          <p class="stat-label">Anos desenvolvendo soluções dermatológicas, estéticas e cirúrgicas.</p>
-        </article>
-        <article class="stat-cell reveal" data-delay="2">
-          <span class="stat-num"><span data-counter="70">0</span><sup>+</sup></span>
-          <span class="stat-rule" aria-hidden="true"></span>
-          <p class="stat-label">Países com clínicas e centros especializados que utilizam a tecnologia.</p>
-        </article>
+          <div class="bignumbers-pill reveal" data-delay="2">
+            <div class="pill-stat">
+              <span class="stat-num">Top <strong>4</strong></span>
+              <span class="stat-label">Players do mercado mundial de lasers médicos.</span>
+            </div>
+            <div class="pill-stat">
+              <span class="stat-num"><span data-counter="45">0</span><sup>+</sup></span>
+              <span class="stat-label">Anos desenvolvendo soluções dermatológicas, estéticas e cirúrgicas.</span>
+            </div>
+            <div class="pill-stat">
+              <span class="stat-num"><span data-counter="70">0</span><sup>+</sup></span>
+              <span class="stat-label">Países com clínicas e centros especializados que utilizam a tecnologia.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tecnologia-image reveal" data-delay="1">
+          <!-- TODO(asset): substituir por foto real quando estiver pronta — engenharia-alema.png em /assets/imagens/ -->
+          <img src="assets/imagens/engenharia-alema.png" alt="Engenharia alemã — Asclepion Laser Technologies" />
+        </div>
       </div>
-      <p class="stats-source">*Fonte: Asclepion Laser Technologies — dados institucionais globais.</p>
     </div>
   </section>
 
