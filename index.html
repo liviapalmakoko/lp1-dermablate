@@ -1219,106 +1219,348 @@
     }
     #ponteiras {
       margin-top: -1px;
+      padding-top: clamp(54px, 6vw, 82px);
+    }
+    #ponteiras .h2 {
+      font-weight: 300;
+      font-size: clamp(28px, 2.75vw, 38px);
+      line-height: 1.12;
+    }
+    #ponteiras .lede {
+      font-size: clamp(13.5px, 1.05vw, 15px);
+      line-height: 1.58;
     }
 
     /* ============================================
-       PONTEIRAS (4 cards)
+       PONTEIRAS (vitrine técnica)
        ============================================ */
-    .tips {
+    .tips-showcase {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: clamp(40px, 5vw, 56px);
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.88fr);
+      gap: clamp(28px, 4vw, 56px);
+      align-items: stretch;
+      margin-top: clamp(34px, 4.2vw, 52px);
     }
-    .tip {
-      background: var(--bg-card);
+    .tips-visual {
+      min-height: 0;
+      padding: clamp(20px, 2.6vw, 32px);
+      background:
+        radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.96) 0%, rgba(242, 244, 246, 0.94) 34%, rgba(214, 220, 226, 0.62) 70%, rgba(143, 163, 184, 0.28) 100%),
+        linear-gradient(180deg, #F7F8F9 0%, #DDE3E8 100%);
       border: 1px solid var(--line-soft);
-      border-radius: var(--radius);
-      padding: clamp(26px, 3vw, 36px);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: border-color .25s ease, transform .25s ease, background .25s ease;
+      justify-content: space-between;
+      box-shadow: 0 24px 70px -46px rgba(20, 38, 57, 0.42);
     }
-    .tip:hover { background: var(--bg-card-clean); }
-    .tip:hover { border-color: var(--line); transform: translateY(-2px); }
-    .tip-media {
+    .tips-visual-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--ink-mute);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .tips-visual-header span:last-child {
+      color: var(--ink-soft);
+      text-align: right;
+    }
+    .tips-orbit {
+      position: relative;
+      z-index: 1;
       width: 100%;
-      aspect-ratio: 4 / 3;
+      flex: 1;
+      min-height: clamp(300px, 32vw, 410px);
+      display: grid;
+      place-items: center;
+    }
+    .tip-preview {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      flex: 1;
+      min-height: clamp(260px, 30vw, 360px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .tip-preview-image {
+      width: clamp(220px, 26vw, 320px);
+      aspect-ratio: 1;
+      height: auto;
+      border-radius: 50%;
+      border: 1px solid rgba(20, 38, 57, 0.08);
       background:
-        radial-gradient(120% 80% at 50% 35%, rgba(143,163,184,0.18), transparent 60%),
-        linear-gradient(180deg, #F2F4F6 0%, #DDE2E7 100%);
-      border-radius: var(--radius-sm);
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,0.96), rgba(255,255,255,0.34) 55%, rgba(143,163,184,0.18) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 14px;
-      overflow: hidden;
       position: relative;
+      box-shadow: 0 24px 70px -48px rgba(20, 38, 57, 0.5);
     }
-    .tip-media::before {
-      /* feixe sutil atrás da ponteira */
-      content: "";
-      position: absolute;
-      top: 10%; bottom: 10%;
-      left: 50%;
-      width: 1px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, transparent, rgba(143,163,184,0.5), transparent);
-    }
-    .tip-media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, 0.34) 48%, transparent 68%);
-      transform: translateX(-120%);
-      opacity: 0;
-      transition: transform .7s cubic-bezier(.2,.7,.2,1), opacity .25s ease;
-      pointer-events: none;
-    }
-    .tip-media img {
+    .tip-preview-image img {
       position: relative;
-      max-width: 65%;
-      max-height: 80%;
+      z-index: 1;
+      width: 76%;
+      max-width: none;
+      max-height: none;
       object-fit: contain;
-      filter: drop-shadow(0 6px 12px rgba(20, 38, 57, 0.10));
-      transition: transform .45s cubic-bezier(.2,.7,.2,1), filter .45s ease;
-    }
-    .tip:hover .tip-media::after {
-      transform: translateX(120%);
+      filter: drop-shadow(0 18px 24px rgba(20, 38, 57, 0.18));
       opacity: 1;
+      transform: translateY(0) scale(1);
+      transition:
+        opacity .34s ease,
+        transform .52s cubic-bezier(.16, 1, .3, 1),
+        filter .52s ease;
     }
-    .tip:hover .tip-media img {
-      transform: translateY(-4px) scale(1.025);
+    .tip-preview-image.is-changing img {
+      opacity: 0.08;
+      transform: translateY(14px) scale(0.975);
+    }
+    .tip-preview-meta {
+      margin-top: clamp(12px, 1.6vw, 18px);
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      transition: opacity .34s ease, transform .52s cubic-bezier(.16, 1, .3, 1);
+    }
+    .tip-preview-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 2px;
+    }
+    .tip-preview-progress span {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(20, 38, 57, 0.14);
+      transition: width .24s ease, background .24s ease;
+    }
+    .tip-preview-progress span.is-active {
+      width: 34px;
+      background: rgba(20, 38, 57, 0.62);
+    }
+    .tip-preview-meta.is-changing {
+      opacity: 0.08;
+      transform: translateY(8px);
+    }
+    .tip-preview-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1;
+      font-weight: 600;
+      color: var(--ink-deep);
+    }
+    .tip-preview-role {
+      margin: 0;
+      max-width: 32ch;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ink-mute);
+    }
+    .tip-product {
+      position: absolute;
+      width: clamp(130px, 15vw, 198px);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.34);
+      border: 1px solid rgba(20, 38, 57, 0.08);
+      box-shadow: 0 18px 42px -30px rgba(20, 38, 57, 0.38);
+      transition: transform .36s cubic-bezier(.2,.7,.2,1), background .25s ease, border-color .25s ease;
+    }
+    .tip-product img {
+      max-width: 76%;
+      max-height: 78%;
+      object-fit: contain;
       filter: drop-shadow(0 12px 18px rgba(20, 38, 57, 0.14));
+      transition: transform .36s cubic-bezier(.2,.7,.2,1), filter .36s ease;
     }
-    .tip-code {
-      font-family: "ui-monospace", "SF Mono", Menlo, Consolas, monospace;
+    .tip-product:hover {
+      background: rgba(255, 255, 255, 0.62);
+      border-color: rgba(20, 38, 57, 0.16);
+      transform: translate(var(--x), var(--y)) scale(1.04);
+    }
+    .tip-product:hover img {
+      transform: translateY(-4px) scale(1.04);
+      filter: drop-shadow(0 18px 24px rgba(20, 38, 57, 0.18));
+    }
+    .tip-product:nth-child(1) { --x: -42%; --y: -54%; transform: translate(var(--x), var(--y)); }
+    .tip-product:nth-child(2) { --x: 46%; --y: -30%; transform: translate(var(--x), var(--y)); }
+    .tip-product:nth-child(3) { --x: -48%; --y: 38%; transform: translate(var(--x), var(--y)); }
+    .tip-product:nth-child(4) { --x: 42%; --y: 54%; transform: translate(var(--x), var(--y)); }
+    .tips-center-mark {
+      width: clamp(132px, 15vw, 190px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(20, 38, 57, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: var(--ink-deep);
+    }
+    .tips-center-mark::before,
+    .tips-center-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      border: 1px solid rgba(20, 38, 57, 0.08);
+    }
+    .tips-center-mark::before { inset: 18%; }
+    .tips-center-mark::after { inset: 34%; }
+    .tips-center-mark span {
+      position: relative;
+      z-index: 1;
       font-size: 11px;
-      letter-spacing: 0.14em;
-      color: var(--ink-soft);
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      text-align: center;
+      color: var(--ink-mute);
+    }
+    .tips-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      height: 100%;
+    }
+    .tip {
+      padding: clamp(17px, 2vw, 24px) 0;
+      border-bottom: 1px solid var(--line);
+      border-left: 0;
+      display: block;
+      flex: 1;
+      align-items: start;
+      cursor: pointer;
+      opacity: 0.54;
+      position: relative;
+      transition: padding-left .25s ease, border-color .25s ease, opacity .25s ease, background .25s ease;
+    }
+    .tip::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: transparent;
+      transition: background .25s ease, transform .25s ease;
+      transform: scaleY(0.6);
+      transform-origin: center;
+    }
+    .tip:last-child { border-bottom: 0; }
+    .tip:hover,
+    .tip:focus-visible,
+    .tip.is-active {
+      padding-left: 8px;
+      border-bottom-color: rgba(20, 38, 57, 0.28);
+      opacity: 1;
+      outline: none;
+    }
+    .tip.is-active {
+      background: rgba(255, 255, 255, 0.26);
+    }
+    .tip.is-active::before {
+      background: rgba(20, 38, 57, 0.56);
+      transform: scaleY(1);
     }
     .tip h3 {
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.1;
       color: var(--ink-deep);
+      margin-bottom: 8px;
     }
     .tip p {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.55;
       color: var(--ink-body);
       margin: 0;
     }
+    .tip-role {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 6px 10px;
+      border: 1px solid rgba(20, 38, 57, 0.12);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--ink-mute);
+      line-height: 1.2;
+    }
     .tips-note {
       margin-top: 32px;
       padding: 22px 26px;
-      background: var(--bg-alt);
+      background: rgba(255, 255, 255, 0.34);
       border-left: 2px solid var(--accent);
       font-size: 15px;
       color: var(--ink-body);
     }
     .tips-note strong { color: var(--ink-deep); }
+    .tip-preview-controls {
+      position: absolute;
+      left: clamp(18px, 2.4vw, 30px);
+      right: clamp(18px, 2.4vw, 30px);
+      top: 50%;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+    .tip-nav {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(20, 38, 57, 0.12);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.56);
+      color: var(--ink-deep);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .tip-nav:hover,
+    .tip-nav:focus-visible {
+      background: rgba(255, 255, 255, 0.86);
+      border-color: rgba(20, 38, 57, 0.24);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .tip-nav svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .tips-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .tips-footnote {
+      margin: 14px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--ink-mute);
+    }
+    .tips-footnote strong { color: var(--ink-deep); font-weight: 600; }
 
     /* ============================================
        CTA FINAL + FORM
@@ -1528,6 +1770,8 @@
       .reveal.tecnologia-image img,
       .tip-media::after,
       .tip-media img,
+      .tip-product,
+      .tip-product img,
       .feature-mark *,
       .application-icon * { transform: none; transition: none; animation: none !important; }
       html { scroll-behavior: auto; }
@@ -1573,9 +1817,10 @@
       .bignumbers-pill .pill-stat:first-child { border-top: 0; }
       .diferenciais-grid { grid-template-columns: 1fr; }
       .diferenciais-intro .lede { max-width: 56ch; }
-      .tips,
+      .tips-showcase,
       .features-list,
       .application-matrix { grid-template-columns: 1fr; }
+      .tips-visual { min-height: 0; }
       .versatility-copy { max-width: none; }
       .application-group {
         min-height: 0;
@@ -1620,6 +1865,26 @@
       }
       .nav.menu-open .nav-cta { margin: 12px 24px 0; align-self: flex-start; }
       .features-list { grid-template-columns: 1fr; }
+      .tips-visual {
+        min-height: 420px;
+        padding: 24px;
+      }
+      .tips-visual-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .tip-product {
+        width: clamp(104px, 34vw, 142px);
+      }
+      .tips-center-mark {
+        width: clamp(110px, 32vw, 140px);
+      }
+      .tip {
+        gap: 8px;
+      }
+      .tip:hover,
+      .tip:focus-visible,
+      .tip.is-active { padding-left: 0; }
       .footer-top { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
     }
@@ -2054,7 +2319,8 @@
         <div class="reveal">
           <span class="eyebrow">Ponteiras de alta precisão</span>
           <h2 class="h2" style="margin-top:18px;">
-            Uma <em>ponteira</em> para cada indicação.
+            Uma <strong>ponteira</strong> para<br />
+            cada indicação.
           </h2>
         </div>
         <p class="lede reveal" data-delay="1">
@@ -2062,47 +2328,97 @@
         </p>
       </div>
 
-      <div class="tips">
-        <article class="tip reveal">
-          <div class="tip-media">
-            <img src="assets/imagens/ponteira-microspot.png" alt="Ponteira MicroSpot — tecnologia fracionada" />
+      <div class="tips-showcase">
+        <div class="tips-visual reveal" aria-label="Vitrine visual das ponteiras Dermablate">
+          <div class="tips-visual-header">
+            <span>Sistema modular</span>
+            <span>Precisão por indicação</span>
           </div>
-          <span class="tip-code">DBL · 01</span>
-          <h3>MicroSpot</h3>
-          <p>Tecnologia fracionada para rejuvenescimento, rugas, poros e estímulo de colágeno.</p>
-        </article>
+          <div class="tip-preview" aria-live="polite">
+            <div class="tip-preview-controls" aria-label="Navegar entre ponteiras">
+              <button class="tip-nav" type="button" id="tipPrev" aria-label="Ponteira anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M15 18 9 12l6-6" />
+                </svg>
+              </button>
+              <button class="tip-nav" type="button" id="tipNext" aria-label="Próxima ponteira">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+            <div class="tip-preview-image" id="tipPreviewImageWrap">
+              <img id="tipPreviewImage" src="assets/imagens/ponteira-microspot.png" alt="Ponteira MicroSpot — tecnologia fracionada" />
+            </div>
+            <div class="tip-preview-meta" id="tipPreviewMeta">
+              <div class="tip-preview-progress" id="tipPreviewProgress" aria-hidden="true">
+                <span class="is-active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span class="tip-preview-title" id="tipPreviewTitle">MicroSpot</span>
+              <p class="tip-preview-role" id="tipPreviewRole">Textura, poros e regeneração superficial</p>
+            </div>
+          </div>
+        </div>
 
-        <article class="tip reveal" data-delay="1">
-          <div class="tip-media">
-            <img src="assets/imagens/ponteira-deepspot.png" alt="Ponteira DeepSpot — remodelagem dérmica" />
-          </div>
-          <span class="tip-code">DBL · 02</span>
-          <h3>DeepSpot</h3>
-          <p>Indicado para cicatrizes profundas e remodelagem dérmica.</p>
-        </article>
+        <div class="tips-panel">
+          <div class="tips-list" aria-label="Selecionar ponteira">
+            <article class="tip reveal is-active" tabindex="0" role="button" aria-pressed="true"
+              data-tip-title="MicroSpot"
+              data-tip-index="0"
+              data-tip-role="Textura, poros e regeneração superficial"
+              data-tip-image="assets/imagens/ponteira-microspot.png"
+              data-tip-alt="Ponteira MicroSpot — tecnologia fracionada">
+              <div>
+                <h3>MicroSpot</h3>
+                <p>Tecnologia fracionada para rejuvenescimento, rugas, poros e estímulo de colágeno.</p>
+              </div>
+            </article>
 
-        <article class="tip reveal" data-delay="2">
-          <div class="tip-media">
-            <img src="assets/imagens/ponteira-variospot.png" alt="Ponteira VarioSpot — spot ajustável" />
-          </div>
-          <span class="tip-code">DBL · 03</span>
-          <h3>VarioSpot</h3>
-          <p>Spot ajustável para ablação precisa de lesões e refinamento da textura da pele.</p>
-        </article>
+            <article class="tip reveal" data-delay="1" tabindex="0" role="button" aria-pressed="false"
+              data-tip-title="DeepSpot"
+              data-tip-index="1"
+              data-tip-role="Profundidade e remodelação tecidual"
+              data-tip-image="assets/imagens/ponteira-deepspot.png"
+              data-tip-alt="Ponteira DeepSpot — remodelagem dérmica">
+              <div>
+                <h3>DeepSpot</h3>
+                <p>Indicado para cicatrizes profundas e remodelagem dérmica.</p>
+              </div>
+            </article>
 
-        <article class="tip reveal" data-delay="3">
-          <div class="tip-media">
-            <img src="assets/imagens/ponteira-fineliner.png" alt="Ponteira FineLiner — máxima precisão" />
+            <article class="tip reveal" data-delay="2" tabindex="0" role="button" aria-pressed="false"
+              data-tip-title="VarioSpot"
+              data-tip-index="2"
+              data-tip-role="Ajuste fino por lesão e área tratada"
+              data-tip-image="assets/imagens/ponteira-variospot.png"
+              data-tip-alt="Ponteira VarioSpot — spot ajustável">
+              <div>
+                <h3>VarioSpot</h3>
+                <p>Spot ajustável para ablação precisa de lesões e refinamento da textura da pele.</p>
+              </div>
+            </article>
+
+            <article class="tip reveal" data-delay="3" tabindex="0" role="button" aria-pressed="false"
+              data-tip-title="FineLiner"
+              data-tip-index="3"
+              data-tip-role="Delicadeza, contorno e acabamento"
+              data-tip-image="assets/imagens/ponteira-fineliner.png"
+              data-tip-alt="Ponteira FineLiner — máxima precisão">
+              <div>
+                <h3>FineLiner</h3>
+                <p>Ponteira de máxima precisão para ablações delicadas e acabamento cirúrgico.</p>
+              </div>
+            </article>
           </div>
-          <span class="tip-code">DBL · 04</span>
-          <h3>FineLiner</h3>
-          <p>Ponteira de máxima precisão para ablações delicadas e acabamento cirúrgico.</p>
-        </article>
+          <p class="tips-footnote reveal" data-delay="3">
+            * Todas as ponteiras contam com <strong>evacuação de fumaça integrada</strong>, garantindo maior visibilidade e segurança durante os procedimentos.
+          </p>
+        </div>
       </div>
 
-      <div class="tips-note reveal">
-        Todas as ponteiras contam com <strong>evacuação de fumaça integrada</strong>, garantindo maior visibilidade e segurança durante os procedimentos.
-      </div>
     </div>
   </section>
 
@@ -2419,6 +2735,69 @@
       item.addEventListener('click', activateProtocol);
       item.addEventListener('focus', activateProtocol);
     });
+
+    // 2.6) Ponteiras: vitrine interativa por hover, foco e toque
+    const tipItems = document.querySelectorAll('.tips-list .tip');
+    const tipPreviewImageWrap = document.getElementById('tipPreviewImageWrap');
+    const tipPreviewMeta = document.getElementById('tipPreviewMeta');
+    const tipPreviewImage = document.getElementById('tipPreviewImage');
+    const tipPreviewTitle = document.getElementById('tipPreviewTitle');
+    const tipPreviewRole = document.getElementById('tipPreviewRole');
+    const tipPreviewProgress = document.getElementById('tipPreviewProgress');
+    const tipPrev = document.getElementById('tipPrev');
+    const tipNext = document.getElementById('tipNext');
+
+    const activateTip = (item) => {
+      if (!item || item.classList.contains('is-active')) return;
+
+      tipItems.forEach(tip => {
+        tip.classList.remove('is-active');
+        tip.setAttribute('aria-pressed', 'false');
+      });
+      item.classList.add('is-active');
+      item.setAttribute('aria-pressed', 'true');
+
+      const { tipTitle, tipRole, tipImage, tipAlt, tipIndex } = item.dataset;
+      tipPreviewImageWrap?.classList.add('is-changing');
+      tipPreviewMeta?.classList.add('is-changing');
+
+      window.setTimeout(() => {
+        if (tipPreviewImage && tipImage) {
+          tipPreviewImage.src = tipImage;
+          tipPreviewImage.alt = tipAlt || tipTitle || '';
+        }
+        if (tipPreviewTitle) tipPreviewTitle.textContent = tipTitle || '';
+        if (tipPreviewRole) tipPreviewRole.textContent = tipRole || '';
+        tipPreviewProgress?.querySelectorAll('span').forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === Number(tipIndex || 0));
+        });
+        tipPreviewImageWrap?.classList.remove('is-changing');
+        tipPreviewMeta?.classList.remove('is-changing');
+      }, 170);
+    };
+
+    tipItems.forEach(item => {
+      item.addEventListener('mouseenter', () => activateTip(item));
+      item.addEventListener('focus', () => activateTip(item));
+      item.addEventListener('click', () => activateTip(item));
+      item.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activateTip(item);
+        }
+      });
+    });
+
+    const stepTip = (direction) => {
+      const items = Array.from(tipItems);
+      const current = items.findIndex(item => item.classList.contains('is-active'));
+      const next = (current + direction + items.length) % items.length;
+      activateTip(items[next]);
+      items[next]?.focus({ preventScroll: true });
+    };
+
+    tipPrev?.addEventListener('click', () => stepTip(-1));
+    tipNext?.addEventListener('click', () => stepTip(1));
 
     // 2) Count-up dos números (0 → target) quando entram na tela
     const animateCounter = (el, end, duration) => {
