@@ -1009,61 +1009,213 @@
     }
 
     /* ============================================
-       VERSATILIDADE (lista de indicações)
+       VERSATILIDADE (matriz de aplicações)
        ============================================ */
     .versatility-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
       gap: clamp(36px, 5vw, 72px);
-      align-items: start;
-    }
-    .indications {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border-top: 1px solid var(--line);
-    }
-    .indications li {
-      padding: 22px 4px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: 16px;
-      color: var(--ink-body);
     }
-    .indications li::before {
-      content: "";
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      flex-shrink: 0;
+    #aplicacoes .h2 {
+      font-weight: 300;
+      font-size: clamp(28px, 2.75vw, 38px);
+      line-height: 1.12;
     }
-    .indications .more {
-      grid-column: 1 / -1;
-      color: var(--ink-mute);
-      font-style: italic;
-      font-family: var(--font-display);
-      font-size: 18px;
+    #aplicacoes .lede {
+      font-size: clamp(13.5px, 1.05vw, 15px);
+      line-height: 1.58;
+    }
+    .versatility-copy {
+      max-width: 520px;
+    }
+    .versatility-copy .lede {
+      max-width: 52ch;
+    }
+    .versatility-kicker {
+      margin-top: clamp(28px, 3vw, 38px);
       padding-top: 24px;
+      border-top: 1px solid rgba(236, 237, 238, 0.16);
+      display: grid;
+      gap: 8px;
+      max-width: 420px;
     }
-    .indications .more::before { display: none; }
+    .versatility-kicker span {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(168, 181, 160, 0.9);
+      font-weight: 600;
+    }
+    .versatility-kicker p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(236, 237, 238, 0.68);
+    }
+    .application-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid rgba(236, 237, 238, 0.18);
+      border-bottom: 1px solid rgba(236, 237, 238, 0.18);
+    }
+    .application-group {
+      min-height: 360px;
+      padding: clamp(24px, 2.8vw, 36px) clamp(16px, 2vw, 26px);
+      border-left: 1px solid rgba(236, 237, 238, 0.13);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: background .28s ease, border-color .28s ease, transform .28s ease;
+    }
+    .application-group:first-child { border-left: 0; }
+    .application-group::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(236, 237, 238, 0.045), transparent 44%),
+        radial-gradient(circle at 50% 18%, rgba(236, 237, 238, 0.07), transparent 48%);
+      opacity: 0;
+      transition: opacity .28s ease;
+      pointer-events: none;
+    }
+    .application-group:hover {
+      background: rgba(236, 237, 238, 0.022);
+      border-left-color: rgba(236, 237, 238, 0.26);
+      transform: translateY(-3px);
+    }
+    .application-group:hover::before { opacity: 1; }
+    .application-icon {
+      position: relative;
+      z-index: 1;
+      width: 46px;
+      height: 46px;
+      color: rgba(236, 237, 238, 0.72);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .25s ease, transform .25s ease;
+    }
+    .application-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      stroke-width: 1.35;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      overflow: visible;
+    }
+    .application-icon .motion-breathe { animation: protocolBreathe 3.2s ease-in-out infinite; transform-origin: center; }
+    .application-icon .motion-drift { animation: protocolDrift 3.6s ease-in-out infinite; }
+    .application-icon .motion-pulse { animation: protocolPulse 2.8s ease-in-out infinite; transform-origin: center; }
+    .application-icon .motion-draw { animation: applicationDraw 3.4s ease-in-out infinite; stroke-dasharray: 28; stroke-dashoffset: 0; }
+    .application-icon .motion-orbit { animation: applicationOrbit 5.8s ease-in-out infinite; transform-origin: center; }
+    .application-icon .motion-rise { animation: applicationRise 3.2s ease-in-out infinite; }
+    .application-group:hover .application-icon {
+      color: rgba(236, 237, 238, 0.96);
+      transform: translateY(-2px);
+    }
+    @keyframes applicationDraw {
+      0%, 100% { stroke-dashoffset: 0; opacity: .72; }
+      50% { stroke-dashoffset: 12; opacity: 1; }
+    }
+    @keyframes applicationOrbit {
+      0%, 100% { transform: rotate(-5deg) scale(1); opacity: .78; }
+      50% { transform: rotate(5deg) scale(1.06); opacity: 1; }
+    }
+    @keyframes applicationRise {
+      0%, 100% { transform: translateY(0); opacity: .72; }
+      50% { transform: translateY(-2px); opacity: 1; }
+    }
+    .application-group h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(20px, 1.9vw, 28px);
+      line-height: 1.14;
+      font-weight: 600;
+      color: var(--ink-inv);
+    }
+    .application-group p {
+      position: relative;
+      z-index: 1;
+      margin: 12px 0 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(236, 237, 238, 0.64);
+    }
+    .application-tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .application-tags span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 7px 10px;
+      border: 1px solid rgba(236, 237, 238, 0.16);
+      border-radius: 999px;
+      font-size: 12.5px;
+      line-height: 1.2;
+      color: rgba(236, 237, 238, 0.78);
+      background: rgba(236, 237, 238, 0.035);
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .application-tags span:hover {
+      color: rgba(168, 181, 160, 0.98);
+      border-color: rgba(168, 181, 160, 0.46);
+      background: rgba(168, 181, 160, 0.08);
+    }
+    .application-cta {
+      margin-top: clamp(22px, 3vw, 36px);
+      display: flex;
+      justify-content: flex-end;
+    }
+    .application-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(236, 237, 238, 0.82);
+      border-bottom: 1px solid rgba(168, 181, 160, 0.62);
+      padding-bottom: 6px;
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .application-cta a::after {
+      content: "→";
+      color: rgba(168, 181, 160, 0.92);
+      transition: transform .2s ease;
+    }
+    .application-cta a:hover {
+      color: var(--ink-inv);
+      border-color: rgba(168, 181, 160, 0.96);
+    }
+    .application-cta a:hover::after { transform: translateX(4px); }
     #aplicacoes.section-deep {
       padding-top: clamp(62px, 7vw, 96px);
       background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 100%);
     }
-    #aplicacoes.section-deep .indications {
-      border-top-color: rgba(236, 237, 238, 0.16);
-    }
-    #aplicacoes.section-deep .indications li {
-      color: rgba(236, 237, 238, 0.82);
-      border-bottom-color: rgba(236, 237, 238, 0.16);
-    }
-    #aplicacoes.section-deep .indications li::before {
-      background: rgba(168, 181, 160, 0.9);
-    }
-    #aplicacoes.section-deep .indications .more {
-      color: rgba(236, 237, 238, 0.62);
+    #aplicacoes.section-deep::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: clamp(20px, 4vw, 40px);
+      right: clamp(20px, 4vw, 40px);
+      max-width: calc(var(--maxw) - clamp(40px, 8vw, 80px));
+      height: 1px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, rgba(236, 237, 238, 0.2), transparent);
     }
     #ponteiras {
       margin-top: -1px;
@@ -1376,7 +1528,8 @@
       .reveal.tecnologia-image img,
       .tip-media::after,
       .tip-media img,
-      .feature-mark * { transform: none; transition: none; animation: none !important; }
+      .feature-mark *,
+      .application-icon * { transform: none; transition: none; animation: none !important; }
       html { scroll-behavior: auto; }
     }
 
@@ -1422,7 +1575,15 @@
       .diferenciais-intro .lede { max-width: 56ch; }
       .tips,
       .features-list,
-      .indications { grid-template-columns: 1fr; }
+      .application-matrix { grid-template-columns: 1fr; }
+      .versatility-copy { max-width: none; }
+      .application-group {
+        min-height: 0;
+        border-left: 0;
+        border-top: 1px solid rgba(236, 237, 238, 0.14);
+      }
+      .application-group:first-child { border-top: 0; }
+      .application-cta { justify-content: flex-start; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
 
@@ -1793,27 +1954,93 @@
   <section id="aplicacoes" class="section-deep">
     <div class="wrap">
       <div class="versatility-grid">
-        <div>
+        <div class="versatility-copy">
           <span class="eyebrow reveal">Versatilidade</span>
           <h2 class="h2 reveal" data-delay="1" style="margin-top:18px;">
-            Uma plataforma.<br />
-            <em>Múltiplas</em> aplicações estéticas.
+            Do <strong>resurfacing</strong> ao <strong>refinamento</strong> de áreas delicadas.
           </h2>
           <p class="lede reveal" data-delay="2" style="margin-top:22px;">
-            Desenvolvida para oferecer <strong>múltiplas possibilidades de tratamento da pele</strong>, ampliando o repertório clínico com segurança e previsibilidade.
+            Uma plataforma desenvolvida para ampliar o repertório clínico em tratamentos de pele, combinando <strong>ablação precisa, regeneração e controle por região</strong>.
           </p>
+          <div class="versatility-kicker reveal" data-delay="3">
+            <span>Repertório clínico</span>
+            <p>As possibilidades se organizam por objetivo terapêutico, facilitando a leitura do potencial da tecnologia na rotina da clínica.</p>
+          </div>
         </div>
 
-        <ul class="indications">
-          <li class="reveal">Resurfacing da pele</li>
-          <li class="reveal" data-delay="1">Rejuvenescimento</li>
-          <li class="reveal" data-delay="1">Rugas e textura da pele</li>
-          <li class="reveal" data-delay="2">Cicatrizes</li>
-          <li class="reveal" data-delay="2">Lesões cutâneas</li>
-          <li class="reveal" data-delay="3">Procedimentos perioculares</li>
-          <li class="reveal" data-delay="3">Blefaroplastia não invasiva</li>
-          <li class="more reveal" data-delay="4">E muito mais — graças à versatilidade da tecnologia.</li>
-        </ul>
+        <div>
+          <div class="application-matrix" aria-label="Matriz de aplicações clínicas">
+            <article class="application-group reveal">
+              <span class="application-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.2 8.4c2.2-1.4 4.4-2.1 6.7-2.1 3.4 0 6.3 1.3 8.9 3.8" />
+                  <path class="motion-draw" d="M4.2 12.2c2.2-1.4 4.4-2.1 6.7-2.1 3.4 0 6.3 1.3 8.9 3.8" />
+                  <path d="M4.2 16c2.2-1.4 4.4-2.1 6.7-2.1 3.4 0 6.3 1.3 8.9 3.8" />
+                  <circle class="motion-pulse" cx="7.3" cy="11.1" r="0.9" />
+                  <circle class="motion-pulse" cx="12.1" cy="9.7" r="0.9" />
+                  <circle class="motion-pulse" cx="15.8" cy="13.7" r="0.9" />
+                </svg>
+              </span>
+              <div>
+                <h3>Textura e superfície</h3>
+                <p>Renovação controlada para refinar irregularidades visíveis da pele.</p>
+              </div>
+              <div class="application-tags" aria-label="Aplicações de textura e superfície">
+                <span>Resurfacing</span>
+                <span>Rugas</span>
+                <span>Poros</span>
+                <span>Textura</span>
+              </div>
+            </article>
+
+            <article class="application-group reveal" data-delay="1">
+              <span class="application-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.2 15.8c2 1.7 4.3 2.5 6.8 2.5s4.8-.8 6.8-2.5" />
+                  <path class="motion-draw" d="M6.4 12.5c1.7 1.2 3.6 1.8 5.6 1.8s3.9-.6 5.6-1.8" />
+                  <path d="M8 9.4c1.2.8 2.5 1.2 4 1.2s2.8-.4 4-1.2" />
+                  <path class="motion-rise" d="M12 4.8v4.6" />
+                  <path class="motion-rise" d="M9.8 7l2.2-2.2L14.2 7" />
+                </svg>
+              </span>
+              <div>
+                <h3>Regeneração dérmica</h3>
+                <p>Estímulo progressivo para qualidade cutânea e remodelação tecidual.</p>
+              </div>
+              <div class="application-tags" aria-label="Aplicações de regeneração dérmica">
+                <span>Rejuvenescimento</span>
+                <span>Colágeno</span>
+                <span>Cicatrizes</span>
+                <span>Firmeza</span>
+              </div>
+            </article>
+
+            <article class="application-group reveal" data-delay="2">
+              <span class="application-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 4.8c-1.2 1.5-1.8 3.3-1.8 5.5 0 4.6 2.5 7.8 5.8 9 3.3-1.2 5.8-4.4 5.8-9 0-2.2-.6-4-1.8-5.5" />
+                  <path d="M9.2 10.1h.1" />
+                  <path d="M14.7 10.1h.1" />
+                  <path class="motion-draw" d="M9.6 14.4c.7.5 1.5.8 2.4.8s1.7-.3 2.4-.8" />
+                  <circle class="motion-pulse" cx="17.2" cy="7.8" r="1.6" />
+                </svg>
+              </span>
+              <div>
+                <h3>Áreas e lesões específicas</h3>
+                <p>Precisão para regiões delicadas e abordagens com demanda de controle fino.</p>
+              </div>
+              <div class="application-tags" aria-label="Aplicações em áreas e lesões específicas">
+                <span>Periocular</span>
+                <span>Blefaroplastia não invasiva</span>
+                <span>Lesões cutâneas</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="application-cta reveal" data-delay="3">
+            <a href="#ponteiras">Ver ponteiras de precisão</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
