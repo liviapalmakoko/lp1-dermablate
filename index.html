@@ -395,7 +395,7 @@
     .nav-toggle.open span::after  { transform: translateY(-7px) rotate(-45deg); }
 
     /* ============================================
-       HERO — fullscreen com efeito glass refraction
+       HERO — vídeo fullscreen
        ============================================ */
     .hero {
       position: relative;
@@ -405,7 +405,11 @@
       padding: calc(var(--nav-h) + 32px) 0 48px;
       overflow: hidden;
       isolation: isolate;
-      background: #112435;
+      background:
+        linear-gradient(90deg, rgba(17, 36, 53, 0.88) 0%, rgba(17, 36, 53, 0.72) 36%, rgba(17, 36, 53, 0.18) 68%, rgba(17, 36, 53, 0.08) 100%),
+        linear-gradient(180deg, rgba(17, 36, 53, 0.12) 0%, rgba(17, 36, 53, 0.46) 100%),
+        url("assets/imagens/hero-dermablate-pessoa.png") center center / cover no-repeat,
+        #112435;
     }
     .hero-media {
       position: absolute;
@@ -414,15 +418,33 @@
       pointer-events: none;
       overflow: hidden;
     }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
     .hero-media::before {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: 0;
+      z-index: 1;
       background:
-        linear-gradient(105deg, transparent 0%, rgba(240, 240, 240, 0.08) 44%, transparent 58%),
-        linear-gradient(180deg, rgba(17, 36, 53, 0.08) 0%, rgba(17, 36, 53, 0.46) 100%);
-      opacity: var(--hero-sheen, 0.72);
+        linear-gradient(90deg, rgba(17, 36, 53, 0.88) 0%, rgba(17, 36, 53, 0.72) 36%, rgba(17, 36, 53, 0.18) 68%, rgba(17, 36, 53, 0.08) 100%),
+        linear-gradient(180deg, rgba(17, 36, 53, 0.12) 0%, rgba(17, 36, 53, 0.46) 100%);
+      pointer-events: none;
+    }
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(105deg, transparent 0%, rgba(240, 240, 240, 0.07) 44%, transparent 58%);
+      opacity: var(--hero-sheen, 0.38);
       transform: translate3d(var(--hero-drift, 0px), 0, 0);
       transition: opacity .45s ease-out;
       pointer-events: none;
@@ -433,19 +455,19 @@
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .hero-content > div {
-      max-width: 1040px;
-      margin: 0 auto;
-      text-align: center;
+      max-width: 710px;
+      margin: 0;
+      text-align: left;
     }
 
     /* Painéis de vidro — backdrop-filter blur diferente em cada um cria refração real */
     .hero-glass {
       position: absolute;
       inset: 0;
-      display: flex;
+      display: none;
       flex-direction: row;
       z-index: 1;
       pointer-events: auto;
@@ -506,13 +528,13 @@
       .form-card button[type=submit] { animation: none !important; }
     }
 
-    /* Texto do hero centralizado, em #f0f0f0 (max white) */
+    /* Texto do hero sobre imagem, em #f0f0f0 (max white) */
     .hero .display { color: #f0f0f0; }
     .hero .display em { color: #f0f0f0; }
     .hero .lede {
       color: rgba(240, 240, 240, 0.92);
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: 0;
+      margin-right: 0;
     }
     .hero .lede strong { color: #f0f0f0; }
     .hero .eyebrow { color: #f0f0f0; }
@@ -521,8 +543,8 @@
       color: #f0f0f0;
       border-color: rgba(240, 240, 240, 0.4);
     }
-    .hero-eyebrow-row { justify-content: center; }
-    .hero-cta-row { justify-content: center; }
+    .hero-eyebrow-row { justify-content: flex-start; }
+    .hero-cta-row { justify-content: flex-start; }
     /* CTAs do hero: ambos com outline verde, preenchem no hover */
     .hero .btn-primary,
     .hero .btn-ghost {
@@ -1311,6 +1333,154 @@
     #aplicacoes.section-deep {
       padding-top: clamp(62px, 7vw, 96px);
       background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep-2) 100%);
+    }
+
+    /* ============================================
+       RESULTADOS (antes e depois)
+       ============================================ */
+    #resultados {
+      padding: clamp(58px, 7vw, 96px) 0 clamp(64px, 8vw, 108px);
+      background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg-soft) 100%);
+    }
+    .results-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(30px, 5vw, 72px);
+      align-items: end;
+      margin-bottom: clamp(30px, 4.2vw, 52px);
+    }
+    #resultados .h2 {
+      font-weight: 300;
+      font-size: clamp(28px, 2.75vw, 38px);
+      line-height: 1.12;
+    }
+    #resultados .lede {
+      font-size: clamp(13.5px, 1.05vw, 15px);
+      line-height: 1.58;
+      max-width: 58ch;
+      margin: 0;
+    }
+    .before-after-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(18px, 2.4vw, 28px);
+    }
+    .comparison-pair {
+      border: 1px solid rgba(20, 38, 57, 0.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 22px 58px -42px rgba(20, 38, 57, 0.34);
+      transition: transform .32s var(--ease-soft), box-shadow .32s ease, border-color .28s ease;
+    }
+    .comparison-pair:hover {
+      transform: translateY(-4px);
+      border-color: rgba(20, 38, 57, 0.14);
+      box-shadow: 0 28px 66px -44px rgba(20, 38, 57, 0.46);
+    }
+    .comparison-slider {
+      --position: 50%;
+      position: relative;
+      aspect-ratio: 5 / 4;
+      overflow: hidden;
+      background: var(--bg-alt);
+      isolation: isolate;
+    }
+    .comparison-image {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+    }
+    .comparison-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .55s var(--ease-soft), filter .55s ease;
+    }
+    .comparison-after {
+      clip-path: inset(0 0 0 var(--position));
+      z-index: 1;
+    }
+    .comparison-pair:hover .comparison-image img {
+      transform: scale(1.025);
+      filter: saturate(1.03) contrast(1.02);
+    }
+    .comparison-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--position);
+      z-index: 3;
+      width: 1px;
+      background: rgba(236, 237, 238, 0.72);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .comparison-divider::before {
+      content: "‹ ›";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(17, 36, 53, 0.28);
+      border: 1px solid rgba(236, 237, 238, 0.5);
+      box-shadow: 0 12px 28px -18px rgba(20, 38, 57, 0.65);
+      backdrop-filter: blur(10px);
+      color: rgba(236, 237, 238, 0.96);
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      transform: translate(-50%, -50%);
+    }
+    .comparison-range {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+    .comparison-range:focus-visible + .comparison-divider::before {
+      outline: 3px solid rgba(168, 181, 160, 0.72);
+      outline-offset: 4px;
+    }
+    .comparison-label {
+      position: absolute;
+      top: 16px;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 8px 14px;
+      border: 1px solid rgba(17, 36, 53, 0.34);
+      border-radius: var(--radius-sm);
+      background: rgba(236, 237, 238, 0.18);
+      color: var(--ink-deep);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      line-height: 1;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .comparison-label-before { left: 16px; }
+    .comparison-label-after { right: 16px; }
+    .results-note {
+      margin: clamp(22px, 3vw, 34px) 0 0;
+      margin-inline: auto;
+      max-width: 76ch;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--ink-mute);
+      text-align: center;
+      white-space: nowrap;
     }
     #ponteiras {
       margin-top: -1px;
@@ -2136,7 +2306,9 @@
       .diferenciais-grid { grid-template-columns: 1fr; }
       .diferenciais-intro .lede { max-width: 56ch; }
       .tips-showcase,
+      .results-intro,
       .features-list,
+      .before-after-grid,
       .application-matrix { grid-template-columns: 1fr; }
       .tips-visual { min-height: 0; }
       .cta-equipment {
@@ -2216,6 +2388,21 @@
       .tip {
         gap: 8px;
       }
+      .comparison-label {
+        min-height: 24px;
+        padding: 5px 8px;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+      }
+      .comparison-label-before { left: 8px; }
+      .comparison-label-after { right: 8px; }
+      .comparison-divider::before {
+        width: 36px;
+        height: 36px;
+      }
+      .results-note {
+        white-space: normal;
+      }
       .tip:hover,
       .tip:focus-visible,
       .tip.is-active { padding-left: 0; }
@@ -2239,6 +2426,7 @@
         <a href="#tecnologia">Tecnologia</a>
         <a href="#diferenciais">Diferenciais</a>
         <a href="#protocolos">Protocolos</a>
+        <a href="#resultados">Resultados</a>
         <a href="#ponteiras">Ponteiras</a>
         <a href="#contato" class="nav-cta">Quero saber mais</a>
       </nav>
@@ -2250,11 +2438,14 @@
   </header>
 
   <!-- ================================
-       HERO — 16:9, preparado pra vídeo de fundo
+       HERO — vídeo de fundo 16:9
        ================================ -->
   <section class="hero" id="top">
-    <!-- camada de mídia: painéis de vidro reagindo ao mouse (sweep idle automático) -->
+    <!-- camada de mídia: vídeo com imagem de fallback no background da seção -->
     <div class="hero-media" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/imagens/hero-dermablate-pessoa.png">
+        <source src="assets/videos/hero-dermablate-pessoa-loop.mp4" type="video/mp4" />
+      </video>
       <div class="hero-glass" id="heroGlass"></div>
     </div>
 
@@ -2643,10 +2834,65 @@
           </div>
 
           <div class="application-cta reveal" data-delay="3">
-            <a href="#ponteiras">Ver ponteiras de precisão</a>
+            <a href="#resultados">Ver resultados clínicos</a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       RESULTADOS / ANTES E DEPOIS
+       ================================ -->
+  <section id="resultados">
+    <div class="wrap">
+      <div class="results-intro">
+        <div class="reveal">
+          <span class="eyebrow">Resultados clínicos</span>
+          <h2 class="h2" style="margin-top:18px;">
+            Antes e depois com <strong>Dermablate®</strong>.
+          </h2>
+        </div>
+        <p class="lede reveal" data-delay="1">
+          Evolução visual de tratamentos realizados com tecnologia Er:YAG, respeitando indicação, protocolo e resposta individual de cada pele.
+        </p>
+      </div>
+
+      <div class="before-after-grid" aria-label="Antes e depois com Dermablate">
+        <article class="comparison-pair reveal">
+          <div class="comparison-slider" data-comparison>
+            <figure class="comparison-image comparison-before">
+              <img src="assets/imagens/dermablate-antes-depois-01-antes.jpg" alt="Antes do tratamento com Dermablate, caso clínico 1" loading="lazy" />
+              <figcaption class="comparison-label comparison-label-before">Antes</figcaption>
+            </figure>
+            <figure class="comparison-image comparison-after">
+              <img src="assets/imagens/dermablate-antes-depois-01-depois.jpg" alt="Depois do tratamento com Dermablate, caso clínico 1" loading="lazy" />
+              <figcaption class="comparison-label comparison-label-after">Depois</figcaption>
+            </figure>
+            <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Arrastar comparação entre antes e depois, caso 1" />
+            <span class="comparison-divider" aria-hidden="true"></span>
+          </div>
+        </article>
+
+        <article class="comparison-pair reveal" data-delay="1">
+          <div class="comparison-slider" data-comparison>
+            <figure class="comparison-image comparison-before">
+              <img src="assets/imagens/dermablate-antes-depois-02-antes.jpg" alt="Antes do tratamento com Dermablate, caso clínico 2" loading="lazy" />
+              <figcaption class="comparison-label comparison-label-before">Antes</figcaption>
+            </figure>
+            <figure class="comparison-image comparison-after">
+              <img src="assets/imagens/dermablate-antes-depois-02-depois.jpg" alt="Depois do tratamento com Dermablate, caso clínico 2" loading="lazy" />
+              <figcaption class="comparison-label comparison-label-after">Depois</figcaption>
+            </figure>
+            <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Arrastar comparação entre antes e depois, caso 2" />
+            <span class="comparison-divider" aria-hidden="true"></span>
+          </div>
+        </article>
+      </div>
+
+      <p class="results-note reveal" data-delay="2">
+        * Resultados podem variar de acordo com indicação, fototipo, protocolo utilizado e resposta individual do paciente.
+      </p>
     </div>
   </section>
 
@@ -2905,6 +3151,7 @@
             <li><a href="#tecnologia">Tecnologia</a></li>
             <li><a href="#diferenciais">Diferenciais</a></li>
             <li><a href="#protocolos">Protocolos</a></li>
+            <li><a href="#resultados">Resultados</a></li>
             <li><a href="#ponteiras">Ponteiras</a></li>
           </ul>
         </div>
@@ -3106,6 +3353,32 @@
       };
       item.addEventListener('click', activateProtocol);
       item.addEventListener('focus', activateProtocol);
+    });
+
+    // 2.55) Antes e depois: linha comparativa arrastável
+    document.querySelectorAll('[data-comparison]').forEach(comparison => {
+      const range = comparison.querySelector('.comparison-range');
+      const setPositionFromClientX = (clientX) => {
+        const rect = comparison.getBoundingClientRect();
+        const value = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
+        range.value = String(Math.round(value));
+        comparison.style.setProperty('--position', `${value.toFixed(2)}%`);
+      };
+      const updateComparison = () => {
+        comparison.style.setProperty('--position', `${range.value}%`);
+      };
+      if (range) {
+        range.addEventListener('input', updateComparison);
+        comparison.addEventListener('pointerdown', (event) => {
+          setPositionFromClientX(event.clientX);
+          comparison.setPointerCapture?.(event.pointerId);
+        });
+        comparison.addEventListener('pointermove', (event) => {
+          if (event.buttons !== 1) return;
+          setPositionFromClientX(event.clientX);
+        });
+        updateComparison();
+      }
     });
 
     // 2.6) Ponteiras: vitrine interativa por hover, foco e toque
